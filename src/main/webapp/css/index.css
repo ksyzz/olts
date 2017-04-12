@@ -1,0 +1,16 @@
+.place{
+    position: relative;
+    left: 30%;
+}
+.form{
+    width:30%;
+    font-size: 15px;
+}
+.text{
+    /*border: 5px gray;*/
+    height: 30px;
+    font-size: 18px;
+}
+.label{
+    width: 50px;
+}
