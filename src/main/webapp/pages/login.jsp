@@ -6,13 +6,12 @@
     <script type="text/javascript" >
         $(function () {
             $("#login").on('click', function () {
-                alert("test");
                 $.ajax({
                     url: "/account/login",
                     type: "post",
                     data: $("#login_message").serialize(),
                     error: function (request, status, error) {
-                        $("#error").append("帐号或密码错误");
+                        $("#login_error").append("帐号或密码错误");
                     }
 //                    success:function (data) {
 //                        $("#error").html(data);
