@@ -14,3 +14,7 @@
 .label{
     width: 50px;
 }
+.error{
+    color: red;
+    font-size: 13px;
+}
