@@ -30,9 +30,9 @@
 <hr/>
     <div class="place">
             <form class="form" id="login_message" >
-                <label class="label">帐  号: </label><input class="text" type="text" placeholder="id" name="id" ><div class="error"></div><br>
+                <label class="label">帐  号: </label><input class="text" type="text" placeholder="id" name="id" ><br>
                 <br/>
-                <label class="label">密  码: </label><input class="text" type="password" placeholder="password" name="password"><div class="error"></div><br>
+                <label class="label">密  码: </label><input class="text" type="password" placeholder="password" name="password"><br>
                 <div id="login_error" class="error"></div><br>
                 <button type="button" id="login">登录</button> <button type="button" id="register" >注册</button>
             </form>

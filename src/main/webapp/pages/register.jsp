@@ -39,11 +39,11 @@
 <hr/>
 <div class="place">
     <form class="form" id="register_message" method="post" action="/account/register">
-        <label class="label">帐  号: </label><input class="text" type="text" placeholder="学号/教职工号" name="id"><div class="error"></div><br>
+        <label class="label">帐  号: </label><input class="text" type="text" placeholder="学号/教职工号" name="id"><label class="error"></label><br>
         <br>
-        <label class="label">昵  称: </label><input class="text" type="text" placeholder="请输入用户名" name="userName"><div class="error"></div><br>
+        <label class="label">昵  称: </label><input class="text" type="text" placeholder="请输入用户名" name="userName"><label class="error"></label><br>
         <br>
-        <label class="label">密  码: </label><input class="text" type="password" placeholder="请输入密码" name="password"><div class="error"></div><br>
+        <label class="label">密  码: </label><input class="text" type="password" placeholder="请输入密码" name="password"><label class="error"></label><br>
         <br>
         <label class="label">用户类型: </label><input type="radio" name="account_type" value="teacher"><label class="label">教师</label><input type="radio" name="account_type" value="student" checked="checked"><label class="label">学生</label>
         <br>
