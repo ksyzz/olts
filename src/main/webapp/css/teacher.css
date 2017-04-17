@@ -1,0 +1,27 @@
+.head{
+    height: 60px;
+    width: 100%;
+    font-size: 20px;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    border-bottom: 1px solid gray;
+}
+.navgation{
+    position: relative;
+    float: left;
+    text-align: center;
+    width: 15%;
+}
+.user{
+    position: relative;
+    float: right;
+    width: 10%;
+    font-size: 15px;
+}
+a.hover{
+    color: dodgerblue;
+}
+p{
+    vertical-align: middle;
+}

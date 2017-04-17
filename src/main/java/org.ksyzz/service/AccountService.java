@@ -28,7 +28,7 @@ public class AccountService {
      */
     public void assertAccount(Account account, String password) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         if (account == null){
-            throw new NullPointerException(nullAccount);
+            throw new LoginException(nullAccount);
         }
         if (!PasswordEncrypt.isEqual(password, account.getPassword())){
             throw new LoginException(passwordNotCorrect);

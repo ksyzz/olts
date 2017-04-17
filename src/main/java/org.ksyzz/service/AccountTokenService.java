@@ -30,15 +30,24 @@ public class AccountTokenService {
     }
 
     /**
+     * 根据令牌获取帐号
+     * @param token
+     * @return
+     */
+    public Account getAccountByToken(String token){
+        AccountToken accountToken = accountTokenRepository.findOne(token);
+        return accountToken.getAccount();
+    }
+    /**
      * 生成令牌
      * @return
      */
-    public AccountToken createToken(Account account){
+    public String createToken(Account account){
         AccountToken accountToken = new AccountToken();
         accountToken.setToken(generateToken());
         accountToken.setAccount(account);
         accountTokenRepository.save(accountToken);
-        return accountToken;
+        return accountToken.getToken();
     }
 
     public String generateToken(){

@@ -6,16 +6,22 @@
     <script type="text/javascript" >
         $(function () {
             $("#login").on('click', function () {
+                if ($("#id").val() == "" || $("#password").val() == ""){
+                    $("#login_error").html("用户名或密码不能为空");
+                    return;
+                }
                 $.ajax({
                     url: "/account/login",
                     type: "post",
                     data: $("#login_message").serialize(),
-                    error: function (request, status, error) {
-                        $("#login_error").append("帐号或密码错误");
-                    }
-//                    success:function (data) {
-//                        $("#error").html(data);
-//                    }
+
+                    success:function (data) {
+                        window.open("/" + data, '_self');
+                    },
+                    error: function (data) {
+                    $("#login_error").html(data.responseText);
+                }
+
                 })
             })
             $("#register").on('click', function () {

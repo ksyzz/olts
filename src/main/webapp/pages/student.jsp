@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-    student
+    student<%=session.getAttribute("token")%>
 </body>
 </html>

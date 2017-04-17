@@ -11,7 +11,8 @@ import org.springframework.stereotype.Repository;
  * Created by fengqian on 2017/4/13.
  */
 @Repository
-public interface AccountTokenRepository extends JpaRepository<AccountToken, Integer>, JpaSpecificationExecutor<AccountToken> {
+public interface AccountTokenRepository extends JpaRepository<AccountToken, String>, JpaSpecificationExecutor<AccountToken> {
     @Query("select t from AccountToken t where t.account = ?1")
     AccountToken findByAccount(Account account);
+
 }
