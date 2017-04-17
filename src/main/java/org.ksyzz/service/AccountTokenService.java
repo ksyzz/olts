@@ -50,6 +50,13 @@ public class AccountTokenService {
         return accountToken.getToken();
     }
 
+    /**
+     * 删除令牌
+     * @param token
+     */
+    public void deleteToken(String token){
+        accountTokenRepository.delete(token);
+    }
     public String generateToken(){
         UUID uuid = UUID.randomUUID();
         return uuid.toString();

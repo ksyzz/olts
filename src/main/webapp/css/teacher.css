@@ -1,11 +1,25 @@
 .head{
     height: 60px;
     width: 100%;
-    font-size: 20px;
+    font-size: 18px;
     position: fixed;
     top: 0px;
     left: 0px;
     border-bottom: 1px solid gray;
+}
+.body{
+    position: fixed;
+    top: 60px;
+}
+.list{
+    border-top: 1px solid gray;
+    position: fixed;
+    left: 0px;
+    top:60px;
+    width:15%;
+    height: 100%;
+    font-size: 15px;
+    background-color: #eeedee;
 }
 .navgation{
     position: relative;
@@ -17,11 +31,19 @@
     position: relative;
     float: right;
     width: 10%;
-    font-size: 15px;
+    font-size: 18px;
 }
-a.hover{
-    color: dodgerblue;
-}
+
 p{
     vertical-align: middle;
+}
+.type{
+    position: relative;
+    height: 40px;
+    background-color: white;
+    border: 1px solid lightgray;
+    width: 90%;
+    left: 5%;
+    right: 5%;
+
 }

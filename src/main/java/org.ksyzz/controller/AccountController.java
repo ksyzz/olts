@@ -78,4 +78,15 @@ public class AccountController {
         request.getSession().setAttribute("token", accountToken);
         return account_type;
     }
+
+    /**
+     * 登出
+     * @param request
+     */
+    @RequestMapping(value = "/logout", method = RequestMethod.DELETE)
+    public void logout(HttpServletRequest request){
+        String token = (String) request.getSession().getAttribute("token");
+        accountTokenService.deleteToken(token);
+        request.getSession().removeAttribute("token");
+    }
 }

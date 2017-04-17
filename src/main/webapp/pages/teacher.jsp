@@ -15,10 +15,17 @@
 </head>
 <body>
     <div class="head">
-        <div class="navgation"><p><a>创建试卷</a></p></div>
-        <div class="navgation"><p><a>查看试卷</a></p></div>
-        <div class="user"><p>${account.userName}|<a>退出</a></p></div>
+        <div class="navgation"><p><a id="create" style="color: dodgerblue">创建试卷</a></p></div>
+        <div class="navgation"><p><a id="search">查看试卷</a></p></div>
+        <div class="user"><p>${account.userName}|<a id="exit">退出</a></p></div>
     </div>
-
+    <div class="body">
+        <div class="list" >
+            <br>
+            <button class="type">单选题</button>
+            <button class="type">多选题</button>
+            <button class="type">问答题</button>
+        </div>
+    </div>
 </body>
 </html>
