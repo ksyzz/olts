@@ -27,8 +27,8 @@
             <button class="type" id="addEssay">问答题</button>
         </div>
         <div class="paper">
-            <input type="text" class="title" placeholder="请输入问卷标题"><br>
-            <label style="right: 40%">考试时长</label><input type="text" class="text" onkeyup="if(!/^\d+$/.test(this.value)) {alert('只能输入数字 !'); this.value=this.value.replace(/[^\d]+/g,'');}" >
+            <input type="text" class="title" placeholder="请输入问卷标题"><br><br>
+            <input type="text"  placeholder="考试时长（分钟）" class="time" onkeyup="if(!/^\d+$/.test(this.value)) {alert('只能输入数字 !'); this.value=this.value.replace(/[^\d]+/g,'');}" >
             <br>
             <div class="question">
                 <form id="1">
@@ -43,9 +43,11 @@
     <script type="text/html" id="radio">
         <div class="question">
             <form id="{{questionId}}">
-                <br><label >题目</label><input type="text" class="text" style="width:90%;border: 1px lavenderblush" name="description"><br>
-                <br><label>分值</label><input type="text" class="text" name="score" onkeyup="if(!/^\d+$/.test(this.value)) {alert('只能输入数字 !'); this.value=this.value.replace(/[^\d]+/g,'');}"><br>
-                <br><label>解析</label><input type="text" class="text" name="analysis" style="width:90%;border: 1px lavenderblush"><br>
+                <br><label >题目:</label><input type="text" class="text" style="width:90%;border: 1px lavenderblush" name="description"><br>
+                <br><label>分值:</label><input type="text" class="text" name="score" onkeyup="if(!/^\d+$/.test(this.value)) {alert('只能输入数字 !'); this.value=this.value.replace(/[^\d]+/g,'');}"><br>
+                <br><label>解析:</label><input type="text" class="text" name="analysis" style="width:90%;border: 1px lavenderblush"><br>
+                <br><div></div><br>
+                <br><button style="border: none">添加选项</button>>
             </form>
         </div>
 
