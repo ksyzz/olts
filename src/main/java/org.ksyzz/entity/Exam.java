@@ -17,6 +17,8 @@ public class Exam {
     private String password;
     //考试时长
     private int time_limited;
+    @ManyToOne
+    private Account account;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "o_exam_question",
@@ -26,6 +28,14 @@ public class Exam {
     private List<Question> questions;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "exam")
     private List<Paper> papers;
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
 
     public Integer getId() {
         return id;

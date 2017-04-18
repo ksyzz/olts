@@ -1,0 +1,54 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: csdc01
+  Date: 2017/4/13
+  Time: 15:57
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Teacher_create</title>
+    <script src="../js/jQuery3.2.js" type="text/javascript"></script>
+    <link href="../css/teacher.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="../js/teacher.js"></script>
+</head>
+<body>
+    <div class="head">
+        <div class="navgation"><p><a id="create" href="teacher_create.jsp" style="color: dodgerblue">创建试卷</a></p></div>
+        <div class="navgation"><p><a id="search" href="teacher_view.jsp">查看试卷</a></p></div>
+        <div class="user"><p>${account.userName}|<a id="exit" >退出</a></p></div>
+    </div>
+    <div class="body">
+        <div class="list" >
+            <br>
+            <button class="type" id="addRadio">单选题</button>
+            <button class="type" id="addMultiple">多选题</button>
+            <button class="type" id="addEssay">问答题</button>
+        </div>
+        <div class="paper">
+            <input type="text" class="title" placeholder="请输入问卷标题"><br>
+            <label style="right: 40%">考试时长</label><input type="text" class="text" onkeyup="if(!/^\d+$/.test(this.value)) {alert('只能输入数字 !'); this.value=this.value.replace(/[^\d]+/g,'');}" >
+            <br>
+            <div class="question">
+                <form id="1">
+                    <br><label >题目</label><input type="text" class="text" style="width:90%;" name="description"><br>
+                    <br><label>分值</label><input type="text" class="text" name="score"><br>
+                    <br><label>解析</label><input type="text" class="text" name="analysis" style="width:90%;"><br>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/html" id="radio">
+        <div class="question">
+            <form id="{{questionId}}">
+                <br><label >题目</label><input type="text" class="text" style="width:90%;border: 1px lavenderblush" name="description"><br>
+                <br><label>分值</label><input type="text" class="text" name="score" onkeyup="if(!/^\d+$/.test(this.value)) {alert('只能输入数字 !'); this.value=this.value.replace(/[^\d]+/g,'');}"><br>
+                <br><label>解析</label><input type="text" class="text" name="analysis" style="width:90%;border: 1px lavenderblush"><br>
+            </form>
+        </div>
+
+    </script>
+</body>
+</html>

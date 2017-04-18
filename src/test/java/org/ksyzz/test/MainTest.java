@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ksyzz.repository.AccountRepository;
 import org.ksyzz.service.AccountService;
+import org.ksyzz.service.AccountTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -21,16 +22,11 @@ public class MainTest {
     AccountService accountService;
     @Autowired
     AccountRepository accountRepository;
+    @Autowired
+    AccountTokenService accountTokenService;
     @Test
-    public void testGetAccount(){
-//        Account account1 = new Account();
-//        account1.setId("ksyzz");
-//        account1.setUserName("fe");
-//        account1.setPassword("123456");
-//        account1.setAccountType(AccountType.TEACHER);
-//        accountRepository.save(account1);
-//
-// ;
+    public void testCreateAccount(){
+
         given()
                 .param("id", "ksyzz4")
                 .param("password", "123456")
@@ -41,5 +37,11 @@ public class MainTest {
                 .then()
                 .assertThat()
                 .statusCode(200);
+    }
+    public void testDeleteToken(){
+//        Account account = accountService.findById("ksyzz4");
+//        String token = accountTokenService.createToken(account);
+//        given()
+//                .when()
     }
 }

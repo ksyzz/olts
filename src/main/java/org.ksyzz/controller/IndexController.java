@@ -28,7 +28,7 @@ public class IndexController {
         String token = (String) request.getSession().getAttribute("token");
         Account account = accountTokenService.getAccountByToken(token);
         modelMap.addAttribute("account", account);
-        return "teacher";
+        return "teacher_create";
     }
     @RequestMapping("/student")
     public String student(

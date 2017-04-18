@@ -84,6 +84,7 @@ public class AccountController {
      * @param request
      */
     @RequestMapping(value = "/logout", method = RequestMethod.DELETE)
+    @ResponseBody
     public void logout(HttpServletRequest request){
         String token = (String) request.getSession().getAttribute("token");
         accountTokenService.deleteToken(token);
