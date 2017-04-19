@@ -2,8 +2,8 @@ package org.ksyzz.service;
 
 import org.ksyzz.entity.Account;
 import org.ksyzz.enums.AccountType;
-import org.ksyzz.exception.LoginException;
-import org.ksyzz.exception.RegisterException;
+import org.ksyzz.exception.NullEntityException;
+import org.ksyzz.exception.ConflictException;
 import org.ksyzz.repository.AccountRepository;
 import org.ksyzz.util.PasswordEncrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,17 +28,17 @@ public class AccountService {
      */
     public void assertAccount(Account account, String password) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         if (account == null){
-            throw new LoginException(nullAccount);
+            throw new NullEntityException(nullAccount);
         }
         if (!PasswordEncrypt.isEqual(password, account.getPassword())){
-            throw new LoginException(passwordNotCorrect);
+            throw new NullEntityException(passwordNotCorrect);
         }
     }
 
     public Account createAccount(String id, String userName, String password, AccountType accountType) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         Account account = accountRepository.findOne(id);
         if (account != null){
-            throw new RegisterException(accountExist);
+            throw new ConflictException(accountExist);
         }
         account = new Account();
         account.setAccountType(accountType);

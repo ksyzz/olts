@@ -13,6 +13,7 @@ public class Exam {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String title;
     //凭此密码参加考试
     private String password;
     //考试时长
@@ -35,6 +36,14 @@ public class Exam {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Integer getId() {

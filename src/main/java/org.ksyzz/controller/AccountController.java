@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
@@ -32,7 +33,7 @@ public class AccountController {
      * 登录，成功后跳转到个人主页
      * @param id
      * @param password
-     * @param request
+     * @param response
      * @return
      * @throws UnsupportedEncodingException
      * @throws NoSuchAlgorithmException
@@ -42,13 +43,13 @@ public class AccountController {
     public String login(
             @RequestParam("id") String id,
             @RequestParam("password") String password,
-            HttpServletRequest request
+            HttpServletResponse response
     ) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         Account account = accountService.findById(id);
         accountService.assertAccount(account, password);
         accountTokenService.deleToken(account);
         String accountToken = accountTokenService.createToken(account);
-        request.getSession().setAttribute("token", accountToken);
+        addCookie("token", accountToken, response);
         return  account.getAccountType() == TEACHER ? "teacher" : "student";
     }
 
@@ -58,7 +59,7 @@ public class AccountController {
      * @param userName
      * @param password
      * @param account_type
-     * @param request
+     * @param response
      * @return
      * @throws UnsupportedEncodingException
      * @throws NoSuchAlgorithmException
@@ -70,24 +71,29 @@ public class AccountController {
             @RequestParam("userName") String userName,
             @RequestParam("password") String password,
             @RequestParam("account_type") String account_type,
-            HttpServletRequest request
+            HttpServletResponse response
     ) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         AccountType accountType = account_type.equals("student") ? AccountType.STUDENT : TEACHER;
         Account account = accountService.createAccount(id, userName, password, accountType);
         String accountToken = accountTokenService.createToken(account);
-        request.getSession().setAttribute("token", accountToken);
+        addCookie("token", accountToken, response);
         return account_type;
     }
 
     /**
      * 登出
-     * @param request
      */
     @RequestMapping(value = "/logout", method = RequestMethod.DELETE)
     @ResponseBody
-    public void logout(HttpServletRequest request){
-        String token = (String) request.getSession().getAttribute("token");
+    public void logout(
+            @RequestParam("token") String token
+    ){
         accountTokenService.deleteToken(token);
-        request.getSession().removeAttribute("token");
+    }
+
+    public void addCookie(String name, String value, HttpServletResponse response){
+        Cookie cookie = new Cookie(name, value);
+        cookie.setPath("/");
+        response.addCookie(cookie);
     }
 }

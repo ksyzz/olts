@@ -2,12 +2,15 @@ package org.ksyzz.service;
 
 import org.ksyzz.entity.Account;
 import org.ksyzz.entity.AccountToken;
+import org.ksyzz.exception.NullEntityException;
 import org.ksyzz.repository.AccountRepository;
 import org.ksyzz.repository.AccountTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
+
+import static org.ksyzz.util.ErrorMessage.tokenInvalidation;
 
 /**
  * Created by fengqian on 2017/4/13.
@@ -36,6 +39,8 @@ public class AccountTokenService {
      */
     public Account getAccountByToken(String token){
         AccountToken accountToken = accountTokenRepository.findOne(token);
+        if (accountToken == null)
+            throw new NullEntityException(tokenInvalidation);
         return accountToken.getAccount();
     }
     /**

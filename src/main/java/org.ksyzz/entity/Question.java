@@ -3,11 +3,9 @@ package org.ksyzz.entity;
 import org.ksyzz.enums.QuestionType;
 
 import javax.persistence.*;
-import javax.security.auth.Subject;
 
-import java.util.Set;
+import java.util.List;
 
-import static javafx.scene.input.KeyCode.J;
 
 /**
  * 问题
@@ -32,7 +30,7 @@ public class Question {
             joinColumns = @JoinColumn(name = "question_id"),
             inverseJoinColumns = @JoinColumn(name = "option_id")
     )
-    private Set<Option> options;
+    private List<Option> options;
     //选择题的答案
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -40,7 +38,7 @@ public class Question {
             joinColumns = @JoinColumn(name = "question_id"),
             inverseJoinColumns = @JoinColumn(name = "option_id")
     )
-    private Set<Option> solutions;
+    private List<Option> solutions;
     //答案解析
     private String analysis;
     //问答题答案
@@ -62,6 +60,14 @@ public class Question {
         this.description = description;
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
     public QuestionType getQuestionType() {
         return questionType;
     }
@@ -70,11 +76,11 @@ public class Question {
         this.questionType = questionType;
     }
 
-    public Set<Option> getOptions() {
+    public List<Option> getOptions() {
         return options;
     }
 
-    public void setOptions(Set<Option> options) {
+    public void setOptions(List<Option> options) {
         if (this.id != null){
             this.options.clear();
             this.options.addAll(options);
@@ -83,11 +89,11 @@ public class Question {
         }
     }
 
-    public Set<Option> getSolutions() {
+    public List<Option> getSolutions() {
         return solutions;
     }
 
-    public void setSolutions(Set<Option> solutions) {
+    public void setSolutions(List<Option> solutions) {
         if (this.id!= null){
             this.solutions.clear();
             this.solutions.addAll(solutions);

@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <head>
     <script src="../js/jQuery3.2.js" type="text/javascript"></script>
+    <script src="../js/jquery.cookie.js" type="text/javascript"></script>
+
     <link href="../css/login.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" >
         $(function () {
@@ -16,7 +18,8 @@
                     data: $("#login_message").serialize(),
 
                     success:function (data) {
-                        window.open("/" + data, '_self');
+                        var token = $.cookie("token");
+                        window.open("/" + data + "?token=" + token, '_self');
                     },
                     error: function (data) {
                     $("#login_error").html(data.responseText);

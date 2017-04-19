@@ -11,16 +11,11 @@
     <title>注册</title>
     <script src="../js/jQuery3.2.js" type="text/javascript"></script>
     <link href="../css/login.css" rel="stylesheet" type="text/css">
+
     <script type="text/javascript">
+
         $(function () {
-//            $(".text").on('change', function () {
-//                if ($(this).val() == "")
-//                {
-//                    $(this).next().html("不能为空");
-//                }else {
-//                    $(this).next().html("");
-//                }
-//            })
+
             $("#register").on('click',function () {
                 var id = $("#id").val();
                 var userName = $("#userName").val();
@@ -36,8 +31,8 @@
                     error:function (data) {
                         $("#register_error").html(data.responseText);
                     },
-                    success:function (data) {
-                        window.open("/" + data, '_self');
+                    success:function () {
+                        window.open("/pages/login.jsp", '_self');
                     }
                 })
             })

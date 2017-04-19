@@ -2,7 +2,7 @@ package org.ksyzz.entity;
 
 import javax.persistence.*;
 
-import java.util.Set;
+import java.util.List;
 
 import static javafx.scene.input.KeyCode.O;
 
@@ -19,7 +19,7 @@ public class Answer {
     private Paper paper;
     @OneToOne(optional = false)
     private Question question;
-    private boolean iscorrect = false;
+    private int score;
     private String essay_answer;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -27,13 +27,14 @@ public class Answer {
             joinColumns = @JoinColumn(name = "answer_id"),
             inverseJoinColumns = @JoinColumn(name = "option_id")
     )
-    private Set<Option> answers;
-    public boolean iscorrect() {
-        return iscorrect;
+    private List<Option> answers;
+
+    public int getScore() {
+        return score;
     }
 
-    public void setIscorrect(boolean iscorrect) {
-        this.iscorrect = iscorrect;
+    public void setScore(int score) {
+        this.score = score;
     }
 
     public Integer getId() {
@@ -68,11 +69,11 @@ public class Answer {
         this.essay_answer = essay_answer;
     }
 
-    public Set<Option> getAnswers() {
+    public List<Option> getAnswers() {
         return answers;
     }
 
-    public void setAnswers(Set<Option> answers) {
+    public void setAnswers(List<Option> answers) {
         this.answers = answers;
     }
 }

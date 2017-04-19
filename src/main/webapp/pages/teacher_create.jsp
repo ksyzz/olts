@@ -12,6 +12,8 @@
     <script src="../js/jQuery3.2.js" type="text/javascript"></script>
     <link href="../css/teacher.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="../js/teacher.js"></script>
+    <script src="../js/jquery.cookie.js" type="text/javascript"></script>
+
 </head>
 <body>
     <div class="head">
@@ -27,16 +29,10 @@
             <button class="type" id="addEssay">问答题</button>
         </div>
         <div class="paper">
-            <input type="text" class="title" placeholder="请输入问卷标题"><br><br>
-            <input type="text"  placeholder="考试时长（分钟）" class="time" onkeyup="if(!/^\d+$/.test(this.value)) {alert('只能输入数字 !'); this.value=this.value.replace(/[^\d]+/g,'');}" >
-            <br>
-            <div class="question">
-                <form id="1">
-                    <br><label >题目</label><input type="text" class="text" style="width:90%;" name="description"><br>
-                    <br><label>分值</label><input type="text" class="text" name="score"><br>
-                    <br><label>解析</label><input type="text" class="text" name="analysis" style="width:90%;"><br>
-                </form>
-            </div>
+            <input type="text" id="title" class="title" placeholder="请输入试卷标题"><br><br>
+            <input type="text" id="time_limited" placeholder="考试时长（分钟）" class="time" onkeyup="if(!/^\d+$/.test(this.value)) {alert('只能输入数字 !'); this.value=this.value.replace(/[^\d]+/g,'');}" >
+            <input type="text" id="password" placeholder="请输入考试密码" class="password">
+            <button class="create_exam" >创建</button><br>
         </div>
     </div>
 

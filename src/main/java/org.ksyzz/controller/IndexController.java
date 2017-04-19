@@ -6,8 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Created by fengqian on 2017/4/13.
@@ -21,20 +20,21 @@ public class IndexController {
     public String index(){
         return "login";
     }
+
     @RequestMapping("/teacher")
     public String teacher(
-            HttpServletRequest request, ModelMap modelMap
+            @RequestParam("token") String token,
+            ModelMap modelMap
     ){
-        String token = (String) request.getSession().getAttribute("token");
         Account account = accountTokenService.getAccountByToken(token);
         modelMap.addAttribute("account", account);
         return "teacher_create";
     }
     @RequestMapping("/student")
     public String student(
-            HttpServletRequest request, ModelMap modelMap
+            @RequestParam("token") String token,
+            ModelMap modelMap
     ){
-        String token = (String) request.getSession().getAttribute("token");
         Account account = accountTokenService.getAccountByToken(token);
         modelMap.addAttribute("account", account);
         return "student";
