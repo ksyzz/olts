@@ -38,13 +38,20 @@
 
     <script type="text/html" id="radio">
         <div class="question">
-            <form id="{{questionId}}">
+            <form >
                 <br><label >题目:</label><input type="text" class="text" style="width:90%;border: 1px lavenderblush" name="description"><br>
                 <br><label>分值:</label><input type="text" class="text" name="score" onkeyup="if(!/^\d+$/.test(this.value)) {alert('只能输入数字 !'); this.value=this.value.replace(/[^\d]+/g,'');}"><br>
-                <br><label>解析:</label><input type="text" class="text" name="analysis" style="width:90%;border: 1px lavenderblush"><br>
-                <br><div></div><br>
-                <br><button style="border: none">添加选项</button>>
+                <br><label>解析:</label><input type="text" class="text" name="analysis" style="width:90%;border: 1px lavenderblush"><br><br>
+                <input name="questionType" type="hidden" value="RADIO">
+                <label>选项:</label>
+                <div style="height: 40px"><input type="text"  class="option" value="选项"></div>
+                <div style="height: 40px"><input type="text" class="option" value="选项"><button type="button" class="delete_option" >x</button></div>
+                <button type="button" style="border: none; background-color: inherit;font-size: 18px" class="addOption">添加选项</button><br>
+                <br><button type="button" class="add">确定</button>&nbsp;&nbsp;<button type="button" class="cancle">取消</button><br>
             </form>
+        </div>
+        <div class="question_detail">
+
         </div>
 
     </script>

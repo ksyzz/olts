@@ -15,7 +15,6 @@ public class QuestionInfo {
     private String description;
     private QuestionType questionType;
     private List<OptionInfo> options;
-    private List<OptionInfo> solutions;
     private String analysis;
     private String essay_solution;
     
@@ -28,9 +27,6 @@ public class QuestionInfo {
         this.essay_solution = question.getEssay_solution();
         if (question.getOptions() != null){
             this.options = question.getOptions().stream().map(OptionInfo :: new).collect(Collectors.toList());
-        }
-        if (question.getSolutions() != null){
-            this.solutions = question.getSolutions().stream().map(OptionInfo :: new).collect(Collectors.toList());
         }
     }
     
@@ -74,13 +70,6 @@ public class QuestionInfo {
         this.options = options;
     }
 
-    public List<OptionInfo> getSolutions() {
-        return solutions;
-    }
-
-    public void setSolutions(List<OptionInfo> solutions) {
-        this.solutions = solutions;
-    }
 
     public String getAnalysis() {
         return analysis;

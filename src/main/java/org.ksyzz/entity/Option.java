@@ -1,5 +1,7 @@
 package org.ksyzz.entity;
 
+import org.ksyzz.info.OptionInfo;
+
 import javax.persistence.*;
 
 /**
@@ -11,8 +13,17 @@ public class Option {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(unique = true)
     private String content;
+    private boolean isSolution = false;
+    public Option(){}
+
+    public boolean isSolution() {
+        return isSolution;
+    }
+
+    public void setSolution(boolean solution) {
+        isSolution = solution;
+    }
 
     public int getId() {
         return id;

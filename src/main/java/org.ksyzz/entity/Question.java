@@ -1,6 +1,7 @@
 package org.ksyzz.entity;
 
 import org.ksyzz.enums.QuestionType;
+import org.ksyzz.info.QuestionInfo;
 
 import javax.persistence.*;
 
@@ -32,18 +33,19 @@ public class Question {
     )
     private List<Option> options;
     //选择题的答案
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "o_question_solution",
-            joinColumns = @JoinColumn(name = "question_id"),
-            inverseJoinColumns = @JoinColumn(name = "option_id")
-    )
-    private List<Option> solutions;
+
     //答案解析
     private String analysis;
     //问答题答案
     private String essay_solution;
 
+    public Question(QuestionInfo questionInfo){
+        this.description = questionInfo.getDescription();
+        this.questionType = questionInfo.getQuestionType();
+        this.score = questionInfo.getScore();
+        this.analysis = questionInfo.getAnalysis();
+        this.essay_solution = questionInfo.getEssay_solution();
+    }
     public Integer getId() {
         return id;
     }
@@ -86,19 +88,6 @@ public class Question {
             this.options.addAll(options);
         }else{
             this.options = options;
-        }
-    }
-
-    public List<Option> getSolutions() {
-        return solutions;
-    }
-
-    public void setSolutions(List<Option> solutions) {
-        if (this.id!= null){
-            this.solutions.clear();
-            this.solutions.addAll(solutions);
-        }else {
-            this.solutions = solutions;
         }
     }
 

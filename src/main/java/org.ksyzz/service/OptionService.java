@@ -22,6 +22,7 @@ public class OptionService {
         }
         return option;
     }
+
     public void deleteOption(String content){
         Option option = optionRepository.findByContent(content);
         optionRepository.delete(option);

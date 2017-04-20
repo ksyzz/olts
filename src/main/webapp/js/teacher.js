@@ -12,6 +12,7 @@ window.onunload = function () {
         }
     })
 }
+var edit = false;
 $(function () {
     $("#exit").on('click', function () {
         var token = $.cookie("token");
@@ -63,6 +64,72 @@ $(function () {
 
     })
     $("#addRadio").on('click', function () {
+        // if ($(".paper").attr("id") == null){
+        //     alert("请先创建试卷");
+        //     return;
+        // }
+        // if (edit){
+        //     alert("请完善上个问题");
+        //     return;
+        // }
+        $(".paper").append($("#radio").html());
+        edit = true;
+        $(".addOption").on('click', function () {
+            $(this).before("<div style='height: 40px'><input type='text' class='option' value='选项'><button type='button' class='delete_option'>x</button></div>");
+            $(".option").on('change',function () {
+                if ($(this).val() == ""){
+                    alert("不能为空！");
+                    $(this).val("选项");
+                }
+            })
+            $(".delete_option").on('click', function () {
+                $(this).parent().remove();
+            })
+        })
+        $(".delete_option").on('click', function () {
+            $(this).parent().remove();
+        })
+        $(".option").on('change',function () {
+            if ($(this).val() == ""){
+                alert("不能为空！");
+                $(this).val("选项");
+            }
+        })
+        $(".cancle").on('click', function () {
+            $(this).parent().parent().remove();
+            edit = false;
+        })
+        $(".add").on('click', function () {
+            var token = $.cookie("token");
+            var $form = $(this).parent();
+            // var option_contents = $form.getElementsByName("option.content");
+            // option_contents.each(function (index, content) {
+            //
+            // })
+
+            form转json数据
+            var questionInfo;
+            alert($form.serializeArray());
+            alert(JSON.stringify($form.serializeArray()));
+            if ($(this).parent().attr("id") == null){
+                $.ajax({
+                    url:"/question/add",
+                    dataType:"json",
+                    type:"post",
+                    contentType:"application/json",
+                    beforeSend:function (request) {
+                      request.setRequestHeader("token", token)
+                    },
+                    data:JSON.stringify($form.serializeArray()),
+                    success:function (data) {
+                        edit = false;
+                    },
+                    error:function (request) {
+                        alert(request.responseText);
+                    }
+                })
+            }
+        })
 
     })
 })
