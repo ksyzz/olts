@@ -40,4 +40,17 @@ public class QuestionController {
         Question question = questionService.createQuestion(questionInfo);
         return new QuestionInfo(question);
     }
+
+    @RequestMapping(value = "/modify/{id}", method = RequestMethod.PUT)
+    @ResponseBody
+    public QuestionInfo modifyQuestion(
+            @PathVariable("id") int id,
+            @RequestHeader("token") String token,
+            @RequestBody QuestionInfo questionInfo
+    ){
+        Account account = accountTokenService.getAccountByToken(token);
+        privilegeService.assertPrivilege(account);
+        Question question = questionService.modifyQuestion(id, questionInfo);
+        return new QuestionInfo(question);
+    }
 }

@@ -13,6 +13,16 @@ window.onunload = function () {
     })
 }
 var edit = false;
+function assertEdit() {
+    var a = false;
+    $(".paper").children(".question").each(function (index) {
+
+        if ($(this).css("display") == "block"){
+            a = true;
+        }
+    })
+    return a;
+}
 $(function () {
     $("#exit").on('click', function () {
         var token = $.cookie("token");
@@ -64,16 +74,16 @@ $(function () {
 
     })
     $("#addRadio").on('click', function () {
-        // if ($(".paper").attr("id") == null){
-        //     alert("请先创建试卷");
-        //     return;
-        // }
-        // if (edit){
-        //     alert("请完善上个问题");
-        //     return;
-        // }
+        if ($(".paper").attr("id") == null){
+            alert("请先创建试卷");
+            return;
+        }
+        if (assertEdit()){
+            alert("请完善上个问题");
+            return;
+        }
         $(".paper").append($("#radio").html());
-        edit = true;
+        // edit = true;
         $(".addOption").on('click', function () {
             $(this).before($("#option").html());
             $(".option").on('change',function () {
@@ -94,20 +104,27 @@ $(function () {
                 alert("不能为空！");
                 $(this).val("选项");
             }
+
         })
         $(".cancle").on('click', function () {
+            $(this).parent().parent().next().remove();
             $(this).parent().parent().remove();
-            edit = false;
+            // edit = false;
         })
         $(".add").on('click', function () {
             var token = $.cookie("token");
             var $form = $(this).parent();
             var questionInfo = "{";
             var json = $form.serializeArray();
+            var first = true;
             for(var i=0; i<json.length;i++){
                 var name = json[i].name;
                 var value = json[i].value;
                 if (name =="description"|| name=="score" || name=="analysis" || name=="essay_solution" || name == "questionType"){
+                    if (value == ""){
+                        alert(name+"can not be null");
+                        return;
+                    }
                     questionInfo += "\""+name+"\":\""+value+"\"";
                     if (i != json.length-1){
                         questionInfo += ",";
@@ -115,8 +132,11 @@ $(function () {
                         questionInfo +="}";
                     }
                 }else{
-                    questionInfo += "\"options\":["
-                    if (name == "content.isSolution"){
+                    if (first){
+                        questionInfo += "\"options\":[";
+                        first=false;
+                    }
+                    if (name == "option.isSolution"){
                         questionInfo += "{\"correct\":true,"
                         i++;
                         questionInfo += "\"content\":\""+json[i].value+"\"}"
@@ -130,26 +150,48 @@ $(function () {
                     }
                 }
             }
-
-            if ($(this).parent().attr("id") == null){
-                $.ajax({
-                    url:"/question/add",
-                    dataType:"json",
-                    type:"post",
-                    contentType:"application/json",
-                    beforeSend:function (request) {
-                      request.setRequestHeader("token", token)
-                    },
-                    data:questionInfo,
-                    success:function (data) {
-                        edit = false;
-                    },
-                    error:function (request) {
-                        alert(request.responseText);
-                    }
-                })
+            var url;
+            var type;
+            if ($form.parent().attr("id") == null){
+                url = "/question/add";
+                type = "post";
+            }else {
+                url =  "/question/modify/"+ $form.parent().attr("id");
+                type="put";
             }
-        })
+            $.ajax({
+                url:url,
+                dataType:"json",
+                type:type,
+                async:false,
+                contentType:"application/json",
+                beforeSend:function (request) {
+                  request.setRequestHeader("token", token)
+                },
+                data:questionInfo,
+                success:function (data) {
+                    edit = false;
+                    $form.parent().attr("id",data.id);
+                    $form.parent().hide();
+                    $form.parent().next().show();
+                    $form.parent().next().html(Mustache.render($("#detail").html(),data));
 
+                },
+                error:function (request) {
+                    alert(request.responseText);
+                }
+            })
+
+        })
     })
+
 })
+function modify(ele) {
+    var $this = $(ele);
+    if (assertEdit()){
+        alert("请完善上个问题");
+        return;
+    }
+    $this.prev().show();
+    $this.hide();
+}

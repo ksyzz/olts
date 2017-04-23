@@ -13,7 +13,7 @@
     <link href="../css/teacher.css" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="../js/teacher.js"></script>
     <script src="../js/jquery.cookie.js" type="text/javascript"></script>
-
+    <script src="../js/mustache.js" type="text/javascript"></script>
 </head>
 <body>
     <div class="head">
@@ -50,14 +50,18 @@
                 <br><button type="button" class="add">确定</button>&nbsp;&nbsp;<button type="button" class="cancle">取消</button><br>
             </form>
         </div>
-        <div class="question_detail">
+        <div class="question_detail" onclick="modify(this)">
 
         </div>
 
     </script>
     <script type="text/html" id="option">
         <div style="height: 40px"><input type="radio" name="option.isSolution"><input type="text" name="option.content" class="option" value="选项"><button type="button" class="delete_option" >x</button></div>
-
+    </script>
+    <script type="text/html" id="detail">
+        <div style="height: 40px">题目:{{description}}({{score}}分)</div>
+        <div style="height: 40px">解析:{{analysis}}</div>
+        {{#options}}<div style="height: 40px"><li>{{content}} &nbsp;&nbsp;{{correct}}</li></div>{{/options}}
     </script>
 </body>
 </html>

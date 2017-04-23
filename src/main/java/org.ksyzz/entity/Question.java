@@ -39,6 +39,9 @@ public class Question {
     //问答题答案
     private String essay_solution;
 
+    public Question() {
+    }
+
     public Question(QuestionInfo questionInfo){
         this.description = questionInfo.getDescription();
         this.questionType = questionInfo.getQuestionType();
@@ -83,12 +86,12 @@ public class Question {
     }
 
     public void setOptions(List<Option> options) {
-        if (this.id != null){
-            this.options.clear();
-            this.options.addAll(options);
-        }else{
+//        if (this.id != null){
+//            this.options.clear();
+//            this.options.addAll(options);
+//        }else{
             this.options = options;
-        }
+//        }
     }
 
     public String getAnalysis() {
