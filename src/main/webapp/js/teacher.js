@@ -75,7 +75,7 @@ $(function () {
         $(".paper").append($("#radio").html());
         edit = true;
         $(".addOption").on('click', function () {
-            $(this).before("<div style='height: 40px'><input type='text' class='option' value='选项'><button type='button' class='delete_option'>x</button></div>");
+            $(this).before($("#option").html());
             $(".option").on('change',function () {
                 if ($(this).val() == ""){
                     alert("不能为空！");
@@ -102,15 +102,35 @@ $(function () {
         $(".add").on('click', function () {
             var token = $.cookie("token");
             var $form = $(this).parent();
-            // var option_contents = $form.getElementsByName("option.content");
-            // option_contents.each(function (index, content) {
-            //
-            // })
+            var questionInfo = "{";
+            var json = $form.serializeArray();
+            for(var i=0; i<json.length;i++){
+                var name = json[i].name;
+                var value = json[i].value;
+                if (name =="description"|| name=="score" || name=="analysis" || name=="essay_solution" || name == "questionType"){
+                    questionInfo += "\""+name+"\":\""+value+"\"";
+                    if (i != json.length-1){
+                        questionInfo += ",";
+                    }else{
+                        questionInfo +="}";
+                    }
+                }else{
+                    questionInfo += "\"options\":["
+                    if (name == "content.isSolution"){
+                        questionInfo += "{\"correct\":true,"
+                        i++;
+                        questionInfo += "\"content\":\""+json[i].value+"\"}"
+                    }else{
+                        questionInfo += "{\"content\":\""+value+"\"}";
+                    }
+                    if (i != json.length-1){
+                        questionInfo += ",";
+                    }else {
+                        questionInfo += "]}";
+                    }
+                }
+            }
 
-            form转json数据
-            var questionInfo;
-            alert($form.serializeArray());
-            alert(JSON.stringify($form.serializeArray()));
             if ($(this).parent().attr("id") == null){
                 $.ajax({
                     url:"/question/add",
@@ -120,7 +140,7 @@ $(function () {
                     beforeSend:function (request) {
                       request.setRequestHeader("token", token)
                     },
-                    data:JSON.stringify($form.serializeArray()),
+                    data:questionInfo,
                     success:function (data) {
                         edit = false;
                     },

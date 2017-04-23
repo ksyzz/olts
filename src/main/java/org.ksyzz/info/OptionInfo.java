@@ -8,19 +8,21 @@ import org.ksyzz.entity.Option;
 public class OptionInfo {
     private int id;
     private String content;
-    private boolean isSolution;
+    private boolean correct;
     public OptionInfo(Option option){
         this.id = option.getId();
         this.content = option.getContent();
-        this.isSolution = option.isSolution();
+        this.correct = option.isCorrect();
+    }
+    public OptionInfo(){
+
+    }
+    public boolean isCorrect() {
+        return correct;
     }
 
-    public boolean isSolution() {
-        return isSolution;
-    }
-
-    public void setSolution(boolean solution) {
-        isSolution = solution;
+    public void setCorrect(boolean correct) {
+        this.correct = correct;
     }
 
     public int getId() {

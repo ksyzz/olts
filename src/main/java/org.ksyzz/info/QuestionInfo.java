@@ -13,11 +13,12 @@ public class QuestionInfo {
     private int id;
     private int score;
     private String description;
-    private QuestionType questionType;
-    private List<OptionInfo> options;
     private String analysis;
     private String essay_solution;
-    
+    private QuestionType questionType;
+    private List<OptionInfo> options;
+
+    public QuestionInfo(){}
     public QuestionInfo(Question question){
         this.id = question.getId();
         this.score = question.getScore();

@@ -14,15 +14,15 @@ public class Option {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String content;
-    private boolean isSolution = false;
+    private boolean correct = false;
     public Option(){}
 
-    public boolean isSolution() {
-        return isSolution;
+    public boolean isCorrect() {
+        return correct;
     }
 
-    public void setSolution(boolean solution) {
-        isSolution = solution;
+    public void setCorrect(boolean correct) {
+        this.correct = correct;
     }
 
     public int getId() {

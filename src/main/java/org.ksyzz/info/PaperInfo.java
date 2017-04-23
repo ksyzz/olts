@@ -21,6 +21,9 @@ public class PaperInfo {
         this.answerInfos = paper.getAnswers().stream().map(AnswerInfo :: new).collect(Collectors.toList());
     }
 
+    public PaperInfo() {
+    }
+
     public int getId() {
         return id;
     }

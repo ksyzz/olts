@@ -1,5 +1,6 @@
 package org.ksyzz.test;
 
+import com.jayway.restassured.http.ContentType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ksyzz.repository.AccountRepository;
@@ -38,10 +39,18 @@ public class MainTest {
                 .assertThat()
                 .statusCode(200);
     }
+    @Test
     public void testDeleteToken(){
 //        Account account = accountService.findById("ksyzz4");
 //        String token = accountTokenService.createToken(account);
-//        given()
-//                .when()
+        given()
+                .header("token", "123456")
+                .contentType(ContentType.JSON)
+                .body("{\"description\":\"2\",\"questionType\":\"RADIO\"}")
+                .when()
+                .post("/question/add")
+                .then()
+                .assertThat()
+                .statusCode(200);
     }
 }

@@ -15,6 +15,9 @@ public class AnswerInfo {
     private List<OptionInfo> answers;
     private QuestionInfo questionInfo;
 
+    public AnswerInfo() {
+    }
+
     public AnswerInfo(Answer answer){
         this.id = answer.getId();
         this.score = answer.getScore();

@@ -23,9 +23,8 @@ public class QuestionService {
         Question question = new Question(questionInfo);
         if (questionInfo.getOptions() != null){
             List<Option> options = new ArrayList<>();
-            List<Option> solutions = new ArrayList<>();
             questionInfo.getOptions().forEach(optionInfo -> {
-                options.add(optionService.createOption(optionInfo.getContent()));
+                options.add(optionService.createOption(optionInfo.getContent(), optionInfo.isCorrect()));
             });
             question.setOptions(options);
         }

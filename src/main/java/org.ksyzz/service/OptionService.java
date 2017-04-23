@@ -13,13 +13,12 @@ public class OptionService {
     @Autowired
     OptionRepository optionRepository;
 
-    public Option createOption(String content){
-        Option option = optionRepository.findByContent(content);
-        if (option == null){
-            option = new Option();
-            option.setContent(content);
-            optionRepository.save(option);
-        }
+    public Option createOption(String content, boolean correct){
+        Option option = new Option();
+        option.setContent(content);
+        option.setCorrect(correct);
+        optionRepository.save(option);
+
         return option;
     }
 

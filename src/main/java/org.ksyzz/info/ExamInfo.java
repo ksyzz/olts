@@ -16,6 +16,9 @@ public class ExamInfo {
     private List<QuestionInfo> questions;
     private List<PaperInfo> papers;
 
+    public ExamInfo() {
+    }
+
     public ExamInfo(Exam exam){
         this.id = exam.getId();
         this.title = exam.getTitle();
