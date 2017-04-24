@@ -31,7 +31,7 @@ public class AccountService {
             throw new NullEntityException(nullAccount);
         }
         if (!PasswordEncrypt.isEqual(password, account.getPassword())){
-            throw new NullEntityException(passwordNotCorrect);
+            throw new ConflictException(passwordNotCorrect);
         }
     }
 

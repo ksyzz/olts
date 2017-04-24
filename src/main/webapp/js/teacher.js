@@ -12,7 +12,6 @@ window.onunload = function () {
         }
     })
 }
-var edit = false;
 function assertEdit() {
     var a = false;
     $(".paper").children(".question").each(function (index) {

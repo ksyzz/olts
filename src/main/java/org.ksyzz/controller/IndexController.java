@@ -30,6 +30,15 @@ public class IndexController {
         modelMap.addAttribute("account", account);
         return "teacher_create";
     }
+    @RequestMapping("/teacher_view")
+    public String teacher_view(
+            @RequestParam("token") String token,
+            ModelMap modelMap
+    ){
+        Account account = accountTokenService.getAccountByToken(token);
+        modelMap.addAttribute("account", account);
+        return "teacher_view";
+    }
     @RequestMapping("/student")
     public String student(
             @RequestParam("token") String token,
@@ -37,6 +46,6 @@ public class IndexController {
     ){
         Account account = accountTokenService.getAccountByToken(token);
         modelMap.addAttribute("account", account);
-        return "student";
+        return "student_join";
     }
 }

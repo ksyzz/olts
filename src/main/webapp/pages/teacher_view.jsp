@@ -15,8 +15,8 @@
 </head>
 <body>
 <div class="head">
-    <div class="navgation"><p><a id="create" href="/teacher" >创建试卷</a></p></div>
-    <div class="navgation"><p><a id="search" href="/teacher_view" style="color: dodgerblue">查看试卷</a></p></div>
+    <div class="navgation"><p><a id="create" onclick="var token = $.cookie('token'); window.open('/teacher?token='+token, '_self')" style="color: dodgerblue">创建试卷</a></p></div>
+    <div class="navgation"><p><a id="search" onclick="var token = $.cookie('token'); window.open('/teacher_view?token='+token, '_self')">查看试卷</a></p></div>
     <div class="user"><p>${account.userName}|<a id="exit">退出</a></p></div>
 </div>
 <div class="body">
