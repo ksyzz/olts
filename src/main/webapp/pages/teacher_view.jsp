@@ -16,7 +16,7 @@
 <body>
 <div class="head">
     <div class="navgation"><p><a id="create" href="/teacher" >创建试卷</a></p></div>
-    <div class="navgation"><p><a id="search" href="teacher_view.jsp" style="color: dodgerblue">查看试卷</a></p></div>
+    <div class="navgation"><p><a id="search" href="/teacher_view" style="color: dodgerblue">查看试卷</a></p></div>
     <div class="user"><p>${account.userName}|<a id="exit">退出</a></p></div>
 </div>
 <div class="body">

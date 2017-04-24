@@ -132,3 +132,8 @@ p{
     border:none;
     font-size: 18px;
 }
+.essay{
+    font-size: 15px;
+    columns:4;
+    width: 60%;
+}

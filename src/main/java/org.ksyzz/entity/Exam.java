@@ -20,12 +20,7 @@ public class Exam {
     private int time_limited;
     @ManyToOne
     private Account account;
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "o_exam_question",
-            joinColumns = @JoinColumn(name = "exam_id"),
-            inverseJoinColumns = @JoinColumn(name = "question_id")
-    )
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "exam")
     private List<Question> questions;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "exam")
     private List<Paper> papers;

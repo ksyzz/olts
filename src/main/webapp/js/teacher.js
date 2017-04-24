@@ -83,9 +83,8 @@ $(function () {
             return;
         }
         $(".paper").append($("#radio").html());
-        // edit = true;
         $(".addOption").on('click', function () {
-            $(this).before($("#option").html());
+            $(this).before($("#radio_option").html());
             $(".option").on('change',function () {
                 if ($(this).val() == ""){
                     alert("不能为空！");
@@ -96,93 +95,43 @@ $(function () {
                 $(this).parent().remove();
             })
         })
-        $(".delete_option").on('click', function () {
-            $(this).parent().remove();
-        })
-        $(".option").on('change',function () {
-            if ($(this).val() == ""){
-                alert("不能为空！");
-                $(this).val("选项");
-            }
-
-        })
-        $(".cancle").on('click', function () {
-            $(this).parent().parent().next().remove();
-            $(this).parent().parent().remove();
-            // edit = false;
-        })
-        $(".add").on('click', function () {
-            var token = $.cookie("token");
-            var $form = $(this).parent();
-            var questionInfo = "{";
-            var json = $form.serializeArray();
-            var first = true;
-            for(var i=0; i<json.length;i++){
-                var name = json[i].name;
-                var value = json[i].value;
-                if (name =="description"|| name=="score" || name=="analysis" || name=="essay_solution" || name == "questionType"){
-                    if (value == ""){
-                        alert(name+"can not be null");
-                        return;
-                    }
-                    questionInfo += "\""+name+"\":\""+value+"\"";
-                    if (i != json.length-1){
-                        questionInfo += ",";
-                    }else{
-                        questionInfo +="}";
-                    }
-                }else{
-                    if (first){
-                        questionInfo += "\"options\":[";
-                        first=false;
-                    }
-                    if (name == "option.isSolution"){
-                        questionInfo += "{\"correct\":true,"
-                        i++;
-                        questionInfo += "\"content\":\""+json[i].value+"\"}"
-                    }else{
-                        questionInfo += "{\"content\":\""+value+"\"}";
-                    }
-                    if (i != json.length-1){
-                        questionInfo += ",";
-                    }else {
-                        questionInfo += "]}";
-                    }
-                }
-            }
-            var url;
-            var type;
-            if ($form.parent().attr("id") == null){
-                url = "/question/add";
-                type = "post";
-            }else {
-                url =  "/question/modify/"+ $form.parent().attr("id");
-                type="put";
-            }
-            $.ajax({
-                url:url,
-                dataType:"json",
-                type:type,
-                async:false,
-                contentType:"application/json",
-                beforeSend:function (request) {
-                  request.setRequestHeader("token", token)
-                },
-                data:questionInfo,
-                success:function (data) {
-                    edit = false;
-                    $form.parent().attr("id",data.id);
-                    $form.parent().hide();
-                    $form.parent().next().show();
-                    $form.parent().next().html(Mustache.render($("#detail").html(),data));
-
-                },
-                error:function (request) {
-                    alert(request.responseText);
+        question();
+    })
+    $("#addMultiple").on('click', function () {
+        if ($(".paper").attr("id") == null){
+            alert("请先创建试卷");
+            return;
+        }
+        if (assertEdit()){
+            alert("请完善上个问题");
+            return;
+        }
+        $(".paper").append($("#multiple").html());
+        $(".addOption").on('click', function () {
+            $(this).before($("#multiple_option").html());
+            $(".option").on('change',function () {
+                if ($(this).val() == ""){
+                    alert("不能为空！");
+                    $(this).val("选项");
                 }
             })
-
+            $(".delete_option").on('click', function () {
+                $(this).parent().remove();
+            })
         })
+        question();
+    })
+    $("#addEssay").on('click', function () {
+        if ($(".paper").attr("id") == null){
+            alert("请先创建试卷");
+            return;
+        }
+        if (assertEdit()){
+            alert("请完善上个问题");
+            return;
+        }
+        $(".paper").append($("#essay").html());
+        question();
     })
 
 })
@@ -194,4 +143,111 @@ function modify(ele) {
     }
     $this.prev().show();
     $this.hide();
+}
+function question() {
+
+    $(".delete_option").on('click', function () {
+        $(this).parent().remove();
+    })
+    $(".option").on('change',function () {
+        if ($(this).val() == ""){
+            alert("不能为空！");
+            $(this).val("选项");
+        }
+
+    })
+    $(".cancle").on('click', function () {
+        var token = $.cookie("token");
+
+        var id = $(this).parent().parent().attr("id");
+        if (id != null){
+            $.ajax({
+                url:"/question/delete/"+id,
+                type:"delete",
+                async:false,
+                beforeSend:function (request) {
+                    request.setRequestHeader("token", token)
+                },
+                error:function (request) {
+                    alert(request.responseText);
+                    return;
+                }
+            })
+        }
+        $(this).parent().parent().next().remove();
+        $(this).parent().parent().remove();
+    })
+    $(".add").on('click', function () {
+        var token = $.cookie("token");
+        var $form = $(this).parent();
+        var questionInfo = "{";
+        var json = $form.serializeArray();
+        var first = true;
+        for(var i=0; i<json.length;i++){
+            var name = json[i].name;
+            var value = json[i].value;
+            if (name =="description"|| name=="score" || name=="analysis" || name=="essay_solution" || name == "questionType"){
+                if (value == ""){
+                    alert(name+"can not be null");
+                    return;
+                }
+                questionInfo += "\""+name+"\":\""+value+"\"";
+                if (i != json.length-1){
+                    questionInfo += ",";
+                }else{
+                    questionInfo +="}";
+                }
+            }else{
+                if (first){
+                    questionInfo += "\"options\":[";
+                    first=false;
+                }
+                if (name == "option.isSolution"){
+                    questionInfo += "{\"correct\":true,"
+                    i++;
+                    questionInfo += "\"content\":\""+json[i].value+"\"}"
+                }else{
+                    questionInfo += "{\"content\":\""+value+"\"}";
+                }
+                if (i != json.length-1){
+                    questionInfo += ",";
+                }else {
+                    questionInfo += "]}";
+                }
+            }
+        }
+        var url;
+        var type;
+        if ($form.parent().attr("id") == null){
+            url = "/question/add/"+$(".paper").attr("id");
+            type = "post";
+        }else {
+            url =  "/question/modify/"+ $form.parent().attr("id");
+            type="put";
+        }
+        $.ajax({
+            url:url,
+            dataType:"json",
+            type:type,
+            async:false,
+            contentType:"application/json",
+            beforeSend:function (request) {
+                request.setRequestHeader("token", token)
+            },
+            data:questionInfo,
+            success:function (data) {
+                edit = false;
+                $form.parent().attr("id",data.id);
+                $form.parent().hide();
+                $form.parent().next().show();
+                $form.parent().next().html(Mustache.render($("#detail").html(),data));
+
+            },
+            error:function (request) {
+                alert(request.responseText);
+            }
+        })
+
+    })
+
 }

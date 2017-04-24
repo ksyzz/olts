@@ -17,8 +17,8 @@
 </head>
 <body>
     <div class="head">
-        <div class="navgation"><p><a id="create" href="teacher_create.jsp" style="color: dodgerblue">创建试卷</a></p></div>
-        <div class="navgation"><p><a id="search" href="teacher_view.jsp">查看试卷</a></p></div>
+        <div class="navgation"><p><a id="create" href="/teacher" style="color: dodgerblue">创建试卷</a></p></div>
+        <div class="navgation"><p><a id="search" href="/teacher_view">查看试卷</a></p></div>
         <div class="user"><p>${account.userName}|<a id="exit" >退出</a></p></div>
     </div>
     <div class="body">
@@ -51,17 +51,48 @@
             </form>
         </div>
         <div class="question_detail" onclick="modify(this)">
-
         </div>
-
     </script>
-    <script type="text/html" id="option">
+    <script type="text/html" id="radio_option">
         <div style="height: 40px"><input type="radio" name="option.isSolution"><input type="text" name="option.content" class="option" value="选项"><button type="button" class="delete_option" >x</button></div>
+    </script>
+    <script type="text/html" id="multiple_option">
+        <div style="height: 40px"><input type="checkbox" name="option.isSolution"><input type="text" name="option.content" class="option" value="选项"><button type="button" class="delete_option" >x</button></div>
     </script>
     <script type="text/html" id="detail">
         <div style="height: 40px">题目:{{description}}({{score}}分)</div>
-        <div style="height: 40px">解析:{{analysis}}</div>
+        <div style="height: 40px">解析:{{analysis}}{{essay_solution}}</div>
         {{#options}}<div style="height: 40px"><li>{{content}} &nbsp;&nbsp;{{correct}}</li></div>{{/options}}
     </script>
+    <script type="text/html" id="multiple">
+        <div class="question">
+            <form >
+                <br><label >题目:</label><input  type="text" class="text" style="width:90%;border: 1px lavenderblush" name="description"><br>
+                <br><label>分值:</label><input type="text" class="text" name="score" onkeyup="if(!/^\d+$/.test(this.value)) {alert('只能输入数字 !'); this.value=this.value.replace(/[^\d]+/g,'');}"><br>
+                <br><label>解析:</label><input type="text" class="text" name="analysis" style="width:90%;border: 1px lavenderblush"><br><br>
+                <input name="questionType" type="hidden" value="MULTIPLE">
+                <label>选项:</label>
+                <div style="height: 40px"><input type="checkbox" name="option.isSolution" checked="checked"><input type="text" name="option.content"  class="option" value="选项"></div>
+                <div style="height: 40px"><input type="checkbox" name="option.isSolution"><input type="text" name="option.content" class="option" value="选项"><button type="button" class="delete_option" >x</button></div>
+                <button type="button" style="border: none; background-color: inherit;font-size: 18px" class="addOption">添加选项</button><br>
+                <br><button type="button" class="add">确定</button>&nbsp;&nbsp;<button type="button" class="cancle">取消</button><br>
+            </form>
+        </div>
+        <div class="question_detail" onclick="modify(this)">
+        </div>
+    </script>
+    <script type="text/html" id="essay">
+        <div class="question">
+            <form >
+                <br><label >题目:</label><input  type="text" class="text" style="width:90%;border: 1px lavenderblush" name="description"><br>
+                <input name="questionType" type="hidden" value="ESSAY">
+                <label>答案:</label>
+                <div ><textarea  class="essay" >答案</textarea></div>
+                <br><button type="button" class="add">确定</button>&nbsp;&nbsp;<button type="button" class="cancle">取消</button><br>
+            </form>
+        </div>
+        <div class="question_detail" onclick="modify(this)">
+        </div>
+</script>
 </body>
 </html>

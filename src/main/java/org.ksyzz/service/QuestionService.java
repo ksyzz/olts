@@ -1,14 +1,15 @@
 package org.ksyzz.service;
 
+import org.ksyzz.entity.Exam;
 import org.ksyzz.entity.Option;
 import org.ksyzz.entity.Question;
 import org.ksyzz.exception.NullEntityException;
 import org.ksyzz.info.QuestionInfo;
+import org.ksyzz.repository.ExamRepository;
 import org.ksyzz.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.ksyzz.util.ErrorMessage.nullQuestion;
@@ -22,19 +23,19 @@ public class QuestionService {
     QuestionRepository questionRepository;
     @Autowired
     OptionService optionService;
-
+    @Autowired
+    ExamRepository examRepository;
     /**
      * 创建问题
      * @param questionInfo
      * @return
      */
-    public Question createQuestion(QuestionInfo questionInfo){
+    public Question createQuestion(int examId, QuestionInfo questionInfo){
+        Exam exam = examRepository.findOne(examId);
         Question question = new Question(questionInfo);
+        question.setExam(exam);
         if (questionInfo.getOptions() != null){
-            List<Option> options = new ArrayList<>();
-            questionInfo.getOptions().forEach(optionInfo -> {
-                options.add(optionService.createOption(optionInfo.getContent(), optionInfo.isCorrect()));
-            });
+            List<Option> options = optionService.createOptions(questionInfo.getOptions());
             question.setOptions(options);
         }
         questionRepository.save(question);
@@ -57,13 +58,14 @@ public class QuestionService {
         question.setScore(questionInfo.getScore());
         question.setEssay_solution(questionInfo.getEssay_solution());
         if (questionInfo.getOptions() != null){
-            List<Option> options = new ArrayList<>();
-            questionInfo.getOptions().forEach(optionInfo -> {
-                options.add(optionService.createOption(optionInfo.getContent(), optionInfo.isCorrect()));
-            });
+            List<Option> options = optionService.createOptions(questionInfo.getOptions());
             question.setOptions(options);
         }
         questionRepository.save(question);
         return question;
+    }
+
+    public void deleteQuestion(int id){
+        questionRepository.delete(id);
     }
 }

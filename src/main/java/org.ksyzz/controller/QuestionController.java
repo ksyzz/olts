@@ -29,18 +29,26 @@ public class QuestionController {
      * @param questionInfo
      * @return
      */
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/add/{examId}", method = RequestMethod.POST)
     @ResponseBody
     public QuestionInfo addQuestion(
+            @PathVariable("examId") int examId,
             @RequestHeader("token") String token,
             @RequestBody QuestionInfo questionInfo
     ){
         Account account = accountTokenService.getAccountByToken(token);
         privilegeService.assertPrivilege(account);
-        Question question = questionService.createQuestion(questionInfo);
+        Question question = questionService.createQuestion(examId, questionInfo);
         return new QuestionInfo(question);
     }
 
+    /**
+     * 修改问题
+     * @param id
+     * @param token
+     * @param questionInfo
+     * @return
+     */
     @RequestMapping(value = "/modify/{id}", method = RequestMethod.PUT)
     @ResponseBody
     public QuestionInfo modifyQuestion(
@@ -52,5 +60,21 @@ public class QuestionController {
         privilegeService.assertPrivilege(account);
         Question question = questionService.modifyQuestion(id, questionInfo);
         return new QuestionInfo(question);
+    }
+
+    /**
+     * 删除问题
+     * @param id
+     * @param token
+     */
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public void deleteQuestion(
+            @PathVariable("id") int id,
+            @RequestHeader("token") String token
+    ){
+        Account account = accountTokenService.getAccountByToken(token);
+        privilegeService.assertPrivilege(account);
+        questionService.deleteQuestion(id);
     }
 }

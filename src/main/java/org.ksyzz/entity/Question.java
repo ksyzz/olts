@@ -24,13 +24,10 @@ public class Question {
     private String description;
     @Enumerated(EnumType.STRING)
     private QuestionType questionType;
+    @ManyToOne
+    private Exam exam;
     //选择题选项
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "o_question_option",
-            joinColumns = @JoinColumn(name = "question_id"),
-            inverseJoinColumns = @JoinColumn(name = "option_id")
-    )
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Option> options;
     //选择题的答案
 
@@ -86,12 +83,15 @@ public class Question {
     }
 
     public void setOptions(List<Option> options) {
-//        if (this.id != null){
-//            this.options.clear();
-//            this.options.addAll(options);
-//        }else{
             this.options = options;
-//        }
+    }
+
+    public Exam getExam() {
+        return exam;
+    }
+
+    public void setExam(Exam exam) {
+        this.exam = exam;
     }
 
     public String getAnalysis() {

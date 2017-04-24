@@ -41,7 +41,7 @@ public class ExamService {
             throw new NullEntityException(nullExam);
         }
         exam.setPassword(password);
-        exam.setPassword(title);
+        exam.setTitle(title);
         exam.setTime_limited(time_limited);
         examRepository.save(exam);
         return exam;
