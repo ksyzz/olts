@@ -6,11 +6,11 @@ import org.ksyzz.entity.Option;
  * Created by fengqian on 2017/4/18.
  */
 public class OptionInfo {
-    private int id;
+    private int optionId;
     private String content;
     private boolean correct;
     public OptionInfo(Option option){
-        this.id = option.getId();
+        this.optionId = option.getId();
         this.content = option.getContent();
         this.correct = option.isCorrect();
     }
@@ -25,12 +25,12 @@ public class OptionInfo {
         this.correct = correct;
     }
 
-    public int getId() {
-        return id;
+    public int getOptionId() {
+        return optionId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setOptionId(int optionId) {
+        this.optionId = optionId;
     }
 
     public String getContent() {

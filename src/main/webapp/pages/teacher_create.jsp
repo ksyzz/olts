@@ -60,7 +60,7 @@
         <div style="height: 40px"><input type="checkbox" name="option.isSolution"><input type="text" name="option.content" class="option" value="选项"><button type="button" class="delete_option" >x</button></div>
     </script>
     <script type="text/html" id="detail">
-        <div style="height: 40px">题目:{{description}}({{score}}分)</div>
+        <div style="height: 40px">题目:{{description}}&nbsp;&nbsp;({{score}}分)</div>
         <div style="height: 40px">解析:{{analysis}}{{essay_solution}}</div>
         {{#options}}<div style="height: 40px"><li>{{content}} &nbsp;&nbsp;{{correct}}</li></div>{{/options}}
     </script>
@@ -87,7 +87,7 @@
                 <br><label >题目:</label><input  type="text" class="text" style="width:90%;border: 1px lavenderblush" name="description"><br>
                 <input name="questionType" type="hidden" value="ESSAY">
                 <label>答案:</label>
-                <div ><textarea  class="essay" >答案</textarea></div>
+                <div ><textarea name="essay_solution"  class="essay" >答案</textarea></div>
                 <br><button type="button" class="add">确定</button>&nbsp;&nbsp;<button type="button" class="cancle">取消</button><br>
             </form>
         </div>

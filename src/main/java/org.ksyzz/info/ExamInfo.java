@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
  * Created by fengqian on 2017/4/19.
  */
 public class ExamInfo {
-    private int id;
+    private int examId;
     private String title;
     private String password;
     private int time_limited;
@@ -18,9 +18,8 @@ public class ExamInfo {
 
     public ExamInfo() {
     }
-
     public ExamInfo(Exam exam){
-        this.id = exam.getId();
+        this.examId = exam.getId();
         this.title = exam.getTitle();
         this.password = exam.getPassword();
         this.time_limited = exam.getTime_limited();
@@ -32,12 +31,12 @@ public class ExamInfo {
         }
     }
 
-    public int getId() {
-        return id;
+    public int getExamId() {
+        return examId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setExamId(int examId) {
+        this.examId = examId;
     }
 
     public String getTitle() {

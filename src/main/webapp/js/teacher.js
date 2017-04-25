@@ -53,7 +53,7 @@ $(function () {
                 dataType:"json",
                 success:function (data) {
                     $this.html("修改");
-                    $this.parent().attr("id", data.id);
+                    $this.parent().attr("id", data.examId);
                 },
                 error:function (request) {
                     alert(request.responseText);
@@ -235,8 +235,7 @@ function question() {
             },
             data:questionInfo,
             success:function (data) {
-                edit = false;
-                $form.parent().attr("id",data.id);
+                $form.parent().attr("id",data.questionId);
                 $form.parent().hide();
                 $form.parent().next().show();
                 $form.parent().next().html(Mustache.render($("#detail").html(),data));

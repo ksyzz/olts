@@ -9,13 +9,13 @@ import java.util.stream.Collectors;
  * Created by fengqian on 2017/4/19.
  */
 public class PaperInfo {
-    private int id;
+    private int paperId;
     private AccountInfo accountInfo;
     private int score;
     private List<AnswerInfo> answerInfos;
 
     public PaperInfo(Paper paper){
-        this.id = paper.getId();
+        this.paperId = paper.getId();
         this.accountInfo = new AccountInfo(paper.getAccount());
         this.score = paper.getScore();
         this.answerInfos = paper.getAnswers().stream().map(AnswerInfo :: new).collect(Collectors.toList());
@@ -24,12 +24,12 @@ public class PaperInfo {
     public PaperInfo() {
     }
 
-    public int getId() {
-        return id;
+    public int getPaperId() {
+        return paperId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPaperId(int paperId) {
+        this.paperId = paperId;
     }
 
     public AccountInfo getAccountInfo() {

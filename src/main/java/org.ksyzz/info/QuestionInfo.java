@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
  * Created by fengqian on 2017/4/19.
  */
 public class QuestionInfo {
-    private int id;
+    private int questionId;
     private int score;
     private String description;
     private String analysis;
@@ -20,7 +20,7 @@ public class QuestionInfo {
 
     public QuestionInfo(){}
     public QuestionInfo(Question question){
-        this.id = question.getId();
+        this.questionId = question.getId();
         this.score = question.getScore();
         this.description = question.getDescription();
         this.questionType = question.getQuestionType();
@@ -30,13 +30,13 @@ public class QuestionInfo {
             this.options = question.getOptions().stream().map(OptionInfo :: new).collect(Collectors.toList());
         }
     }
-    
-    public int getId() {
-        return id;
+
+    public int getQuestionId() {
+        return questionId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setQuestionId(int questionId) {
+        this.questionId = questionId;
     }
 
     public int getScore() {

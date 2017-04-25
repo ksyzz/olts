@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
  * Created by fengqian on 2017/4/19.
  */
 public class AnswerInfo {
-    private int id;
+    private int answerId;
     private int score;
     private String essay_answer;
     private List<OptionInfo> answers;
@@ -19,7 +19,7 @@ public class AnswerInfo {
     }
 
     public AnswerInfo(Answer answer){
-        this.id = answer.getId();
+        this.answerId = answer.getId();
         this.score = answer.getScore();
         this.essay_answer = answer.getEssay_answer();
         this.questionInfo = new QuestionInfo(answer.getQuestion());
@@ -28,13 +28,15 @@ public class AnswerInfo {
         }
     }
 
-    public int getId() {
-        return id;
+    public int getAnswerId() {
+        return answerId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setAnswerId(int answerId) {
+        this.answerId = answerId;
     }
+
+
 
     public int getScore() {
         return score;

@@ -48,7 +48,7 @@ $(function () {
     })
 })
 function startExam(data) {
-    $("body").html(Mustache.render($("#test").html(), data));
+    $(".index").html(Mustache.render($("#test").html(), data));
     var timeCount = data.time_limited*60;
         $("#time").everyTime("1s",function () {
             timeCount--;

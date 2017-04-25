@@ -7,6 +7,7 @@ Created by IntelliJ IDEA.
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Student</title>
@@ -15,10 +16,36 @@ Created by IntelliJ IDEA.
     <script src="../js/jQuery3.2.js" type="text/javascript"></script>
     <script src="../js/mustache.js" type="text/javascript"></script>
     <script src="../js/student.js" type="text/javascript"></script>
+    <script src="../js/timers.js" type="text/javascript"></script>
+    <script type="text/html" id="test">
+        <div class="head" style="text-align: center;height: 30px">
+            <div class="subtop">试卷名：{{title}}</div><div class="subtop"> 考试时长：{{time_limited}}分钟 </div>  <div class="subtop" id="time"> </div>
+        </div>
+        <div class="body" id="{{examId}}">
+            <form>
+                {{#questions}}
+                <div class="question" id="{{questionId}}">
+                    {{description}}<br>
+                    <c:if test="${'{{questionType}}'=='RADIO'}">
+                        {{#options}} <div style="height: 40px"><input type="radio" name="option.isSolution" >{{content}}</div>
+                        {{/options}}
+                    </c:if>
+                    <c:if test="${ '{{questionType}}'=='MUSTIPLE'}">
+                        {{#options}} <div style="height: 40px"><input type="checkbox" name="option.isSolution" >{{content}}</div>
+                        {{/options}}
+                    </c:if>
+                    <c:if test="${ '{{questionType}}'=='ESSAY'}">
+                        <div ><textarea  class="essay" >答案</textarea></div>
+                    </c:if>
 
+                </div>
+                {{/questions}}
+            </form>
 
+        </div>
+    </script>
 </head>
-<body>
+<body class="index">
 <div class="head">
     <div class="navgation"><p><a id="tojoin" onclick="var token = $.cookie('token'); window.open('/teacher?token='+token, '_self')" style="color: dodgerblue">参加考试</a></p></div>
     <div class="navgation"><p><a id="joined" onclick="var token = $.cookie('token'); window.open('/teacher_view?token='+token, '_self')">我的答卷</a></p></div>
@@ -33,19 +60,6 @@ Created by IntelliJ IDEA.
         <button  type="button" id="join">参加</button><br>
     </div>
 </div>
-<script type="text/html" id="test">
-    <div class="head" style="text-align: center;height: 30px">
-        <div class="subtop">试卷名：{{title}}</div><div class="subtop"> 考试时长：{{time_limited}}分钟 </div>  <div class="subtop" id="time"> </div>
-    </div>
-    <div class="body" id="{{id}}">
-        {{#questions}}
-        <div class="question">
-            {{description}}<br>
-            {{#if(questionType==RADIO)}}<div style="height: 40px"><input type="radio" name="option.isSolution" ></div>{{/endif}}
-            {{#options}}{{/options}}
-        </div>
-        {{/questions}}
-    </div>
-</script>
+
 </body>
 </html>
