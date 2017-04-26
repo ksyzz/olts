@@ -15,34 +15,35 @@ Created by IntelliJ IDEA.
     <link href="../css/student.css" rel="stylesheet" type="text/css">
     <script src="../js/jQuery3.2.js" type="text/javascript"></script>
     <script src="../js/mustache.js" type="text/javascript"></script>
+    <script src="../js/jquery.cookie.js" type="text/javascript"></script>
     <script src="../js/student.js" type="text/javascript"></script>
     <script src="../js/timers.js" type="text/javascript"></script>
     <script type="text/html" id="test">
-        <div class="head" style="text-align: center;height: 30px">
-            <div class="subtop">试卷名：{{title}}</div><div class="subtop"> 考试时长：{{time_limited}}分钟 </div>  <div class="subtop" id="time"> </div>
-        </div>
-        <div class="body" id="{{examId}}">
-            <form>
-                {{#questions}}
-                <div class="question" id="{{questionId}}">
-                    {{description}}<br>
-                    <c:if test="${'{{questionType}}'=='RADIO'}">
-                        {{#options}} <div style="height: 40px"><input type="radio" name="option.isSolution" >{{content}}</div>
-                        {{/options}}
-                    </c:if>
-                    <c:if test="${ '{{questionType}}'=='MUSTIPLE'}">
-                        {{#options}} <div style="height: 40px"><input type="checkbox" name="option.isSolution" >{{content}}</div>
-                        {{/options}}
-                    </c:if>
-                    <c:if test="${ '{{questionType}}'=='ESSAY'}">
-                        <div ><textarea  class="essay" >答案</textarea></div>
-                    </c:if>
+        <%--<div class="head" style="text-align: center;height: 30px">--%>
+            <%--<div class="subtop">试卷名：{{title}}</div><div class="subtop"> 考试时长：{{time_limited}}分钟 </div>  <div class="subtop" id="time"> </div>--%>
+        <%--</div>--%>
+        <%--<div class="body" id="${examInfo.id}">--%>
+            <%--<form>--%>
+                <%--{{#questions}}--%>
+                <%--<div class="question" >--%>
+                    <%--${examInfo.description}<br>--%>
+                    <%--<c:if test="${'{{questionType}}'=='RADIO'}">--%>
+                        <%--{{#options}} <div style="height: 40px"><input type="radio" name="option.isSolution" >{{content}}</div>--%>
+                        <%--{{/options}}--%>
+                    <%--</c:if>--%>
+                    <%--<c:if test="${ '{{questionType}}'=='MUSTIPLE'}">--%>
+                        <%--{{#options}} <div style="height: 40px"><input type="checkbox" name="option.isSolution" >{{content}}</div>--%>
+                        <%--{{/options}}--%>
+                    <%--</c:if>--%>
+                    <%--<c:if test="${ '{{questionType}}'=='ESSAY'}">--%>
+                        <%--<div ><textarea  class="essay" >答案</textarea></div>--%>
+                    <%--</c:if>--%>
 
-                </div>
-                {{/questions}}
-            </form>
+                <%--</div>--%>
+                <%--{{/questions}}--%>
+            <%--</form>--%>
 
-        </div>
+        <%--</div>--%>
     </script>
 </head>
 <body class="index">
@@ -57,7 +58,7 @@ Created by IntelliJ IDEA.
         <br><input type="text" id="password" placeholder="请输入考试密码" class="password"><br>
         <br><input type="text" id="studentId" placeholder="请输入学号" class="password"><br>
         <div class="error" style="color: red"></div>
-        <button  type="button" id="join">参加</button><br>
+        <br><button  type="button" id="join" style="border: none;background-color: inherit;font-size: 18px">参加</button><br>
     </div>
 </div>
 

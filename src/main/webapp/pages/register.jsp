@@ -30,9 +30,6 @@
                     data:$("#register_message").serialize(),
                     error:function (data) {
                         $("#register_error").html(data.responseText);
-                    },
-                    success:function () {
-                        window.open("/pages/login.jsp", '_self');
                     }
                 })
             })

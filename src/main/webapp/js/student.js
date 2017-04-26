@@ -38,7 +38,8 @@ $(function () {
             data:{studentId:studentId, examId:examId, password:password},
             dataType:"json",
             success:function (data) {
-                startExam(data);
+                // window.open("/pages/exam.jsp?examInfo="+JSON.stringify(data), "_self");
+                // startExam(data);
             },
             error:function (request) {
                 $(".error").html(request.responseText);

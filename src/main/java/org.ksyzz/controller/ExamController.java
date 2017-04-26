@@ -10,7 +10,6 @@ import org.ksyzz.service.ExamService;
 import org.ksyzz.service.PrivilegeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -85,11 +84,10 @@ public class ExamController {
      */
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     @ResponseBody
-    public String joinExam(
+    public ExamInfo joinExam(
             @RequestParam("studentId") String studentId,
             @RequestParam("examId") int examId,
             @RequestParam("password") String password,
-            ModelMap modelMap,
             HttpServletResponse response
     ){
         Exam exam = examService.joinExam(examId, password);
@@ -100,8 +98,6 @@ public class ExamController {
         Cookie cookie = new Cookie("studentId", studentId);
         cookie.setPath("/");
         response.addCookie(cookie);
-        ExamInfo examInfo = new ExamInfo(exam);
-        modelMap.addAttribute("examInfo", examInfo);
-        return "exam";
+       return new ExamInfo(exam);
     }
 }
