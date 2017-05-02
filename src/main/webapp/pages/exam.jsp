@@ -20,22 +20,24 @@
 </head>
 <body>
     <div class="head" style="text-align: center;height: 30px">
-        <div class="subtop">试卷名：${examInfo.title}</div><div class="subtop"> 考试时长：${examInfo.time_limited}分钟 </div>  <div class="subtop" id="time"><div class="subtop" style="width: 10%" ><button style="width: 100%;height: 100%;background-color: inherit">交卷</button></div>
+        <div class="subtop">试卷名：${examInfo.title}</div><div class="subtop"> 考试时长：${examInfo.time_limited}分钟 </div>  <div class="subtop" id="time"></div><div class="subtop" style="width: 10%" ><button style="width: 100%;height: 100%;background-color: inherit">交卷</button></div>
+        <div id="start"><button style="font-size: 20px; left: 48%;" onclick="startExam(${examInfo.time_limited}, this)">开始考试</button></div>
     </div>
-    <button style="font-size: 20px; left: 48%;" onclick="startExam(${examInfo.time_limited})">开始考试</button>
-    <div class="body" style="width: 80%;display: none" id="${examInfo.examId}" >
+
+    <div class="body" style="width: 100%;display: none" id="${examInfo.examId}" >
         <form>
             <c:forEach items="${examInfo.questions}" var="question" varStatus="index">
                 <div class="question"  id="${question.questionId}">
                     ${index.index+1}. ${question.description}<br>
+                        <input type="hidden" name="questionId" value="${question.questionId}">
                     <c:if test="${question.questionType=='MULTIPLE'}">
                         <c:forEach items="${question.options}" var="option">
-                            <div style="height: 40px"><input type="checkbox" name="isSolution" >${option.content}</div>
+                            <div style="height: 40px"><input type="checkbox" name="isSolution" value="${option.optionId}">${option.content}</div>
                         </c:forEach>
                     </c:if>
                     <c:if test="${question.questionType=='RADIO'}">
                         <c:forEach items="${question.options}" var="option">
-                            <div style="height: 40px"><input type="radio" name="isSolution" >${option.content}</div>
+                            <div style="height: 40px"><input type="radio" name="isSolution" value="${option.optionId}">${option.content}</div>
                         </c:forEach>
                     </c:if>
                     <c:if test="${question.questionType=='ESSAY'}">

@@ -4,6 +4,7 @@
  */
 function startExam(timelength) {
     $(".body").show();
+    $("#start").remove();
     var timeCount = timelength*60;
         $("#time").everyTime("1s",function () {
             timeCount--;
@@ -14,6 +15,7 @@ function startExam(timelength) {
             var clock = getClockModel(timeCount);
             $(this).html(clock);
         })
+
 }
 function getClockModel(count) {
     var text =  parseInt(count/3600)+":"+parseInt(count%3600/600)+""+parseInt(count%3600/60%10)+":"+parseInt(count%60/10)+""+count%10;
