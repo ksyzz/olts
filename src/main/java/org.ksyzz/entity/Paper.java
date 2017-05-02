@@ -18,7 +18,7 @@ public class Paper {
     private Account account;
     @ManyToOne(optional = false)
     private Exam exam;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "paper")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Answer> answers;
     private int score;
 
@@ -60,5 +60,8 @@ public class Paper {
 
     public void setScore(int score) {
         this.score = score;
+    }
+    public void calculateScore(int score){
+        this.score += score;
     }
 }

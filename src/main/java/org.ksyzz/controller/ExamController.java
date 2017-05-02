@@ -2,20 +2,20 @@ package org.ksyzz.controller;
 
 import org.ksyzz.entity.Account;
 import org.ksyzz.entity.Exam;
+import org.ksyzz.exception.ConflictException;
 import org.ksyzz.exception.NullEntityException;
 import org.ksyzz.info.ExamInfo;
-import org.ksyzz.service.AccountService;
-import org.ksyzz.service.AccountTokenService;
-import org.ksyzz.service.ExamService;
-import org.ksyzz.service.PrivilegeService;
+import org.ksyzz.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 import static org.ksyzz.util.ErrorMessage.nullAccount;
+import static org.ksyzz.util.ErrorMessage.repeateExam;
 
 /**
  * Created by fengqian on 2017/4/19.
@@ -32,6 +32,8 @@ public class ExamController {
     PrivilegeService privilegeService;
     @Autowired
     AccountService accountService;
+    @Autowired
+    PaperService paperService;
     /**
      * 创建试卷
      * @param title
@@ -83,21 +85,27 @@ public class ExamController {
      * @return
      */
     @RequestMapping(value = "/get", method = RequestMethod.GET)
-    @ResponseBody
-    public ExamInfo joinExam(
+    public String joinExam(
             @RequestParam("studentId") String studentId,
             @RequestParam("examId") int examId,
             @RequestParam("password") String password,
+            ModelMap modelMap,
             HttpServletResponse response
     ){
-        Exam exam = examService.joinExam(examId, password);
-        if (accountService.findById(studentId) == null){
+        Account account = accountService.findById(studentId);
+        if (account == null){
             throw new NullEntityException(nullAccount);
+        }
+        Exam exam = examService.joinExam(examId, password);
+        if (paperService.isAnswered(account, exam)){
+            throw new ConflictException(repeateExam);
         }
         // TODO: 2017/4/24 答完试卷后删除cookie
         Cookie cookie = new Cookie("studentId", studentId);
         cookie.setPath("/");
         response.addCookie(cookie);
-       return new ExamInfo(exam);
+        ExamInfo examInfo = new ExamInfo(exam);
+        modelMap.addAttribute("examInfo", examInfo);
+       return "exam";
     }
 }

@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
  */
 public class PaperInfo {
     private int paperId;
+    private ExamInfo examInfo;
     private AccountInfo accountInfo;
     private int score;
     private List<AnswerInfo> answerInfos;
@@ -17,8 +18,17 @@ public class PaperInfo {
     public PaperInfo(Paper paper){
         this.paperId = paper.getId();
         this.accountInfo = new AccountInfo(paper.getAccount());
+//        this.examInfo = new ExamInfo(paper.getExam());
         this.score = paper.getScore();
         this.answerInfos = paper.getAnswers().stream().map(AnswerInfo :: new).collect(Collectors.toList());
+    }
+
+    public ExamInfo getExamInfo() {
+        return examInfo;
+    }
+
+    public void setExamInfo(ExamInfo examInfo) {
+        this.examInfo = examInfo;
     }
 
     public PaperInfo() {

@@ -10,6 +10,7 @@ import org.ksyzz.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.ksyzz.util.ErrorMessage.nullQuestion;
@@ -67,5 +68,23 @@ public class QuestionService {
 
     public void deleteQuestion(int id){
         questionRepository.delete(id);
+    }
+
+    public Question findById(int id){
+        return questionRepository.findOne(id);
+    }
+
+    /**
+     * 获取问题的正确答案
+     * @param question
+     * @return
+     */
+    public List<Option> getCorrectOptions(Question question){
+        List<Option> correctOption = new ArrayList<>();
+        question.getOptions().forEach(option -> {
+            if (option.isCorrect())
+                correctOption.add(option);
+        });
+        return correctOption;
     }
 }

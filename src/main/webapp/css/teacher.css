@@ -135,5 +135,6 @@ p{
 .essay{
     font-size: 15px;
     columns:4;
-    width: 60%;
+    width: 100%;
+    height: 100px;
 }

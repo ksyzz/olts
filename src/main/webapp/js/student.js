@@ -32,38 +32,45 @@ $(function () {
             alert("请补充完整试卷信息");
             return;
         }
-        $.ajax({
-            url:"/exam/get",
-            type:"get",
-            data:{studentId:studentId, examId:examId, password:password},
-            dataType:"json",
-            success:function (data) {
-                // window.open("/pages/exam.jsp?examInfo="+JSON.stringify(data), "_self");
-                // startExam(data);
-            },
-            error:function (request) {
-                $(".error").html(request.responseText);
-            }
-        })
+        var url = "/exam/get?studentId="+studentId+"&examId="+examId+"&password="+password;
+        window.open(url, '_self');
+        // $.ajax({
+        //     url:"/exam/get",
+        //     type:"get",
+        //     data:{studentId:studentId, examId:examId, password:password},
+        //     dataType:"json",
+        //     success:function (data) {
+        //         data = {data:data,"if(questionType == RADIO)":function () {
+        //             if (this.questionType == "RADIO"){
+        //                 return true;
+        //             }
+        //         }}
+        //         // window.open("/pages/exam.jsp?examInfo="+JSON.stringify(data), "_self");
+        //         startExam(data);
+        //     },
+        //     error:function (request) {
+        //         $(".error").html(request.responseText);
+        //     }
+        // })
 
     })
 })
-function startExam(data) {
-    $(".index").html(Mustache.render($("#test").html(), data));
-    var timeCount = data.time_limited*60;
-        $("#time").everyTime("1s",function () {
-            timeCount--;
-            if (timeCount == 0){
-                $("#time").stopTime();
-                commit();
-            }
-            var clock = getClockModel(timeCount);
-            $(this).html(clock);
-        })
-}
-function commit() {
-
-}
+// function startExam(data) {
+//     $(".index").html(Mustache.render($("#test").html(), data));
+//     var timeCount = data.data.time_limited*60;
+//         $("#time").everyTime("1s",function () {
+//             timeCount--;
+//             if (timeCount == 0){
+//                 $("#time").stopTime();
+//                 commit();
+//             }
+//             var clock = getClockModel(timeCount);
+//             $(this).html(clock);
+//         })
+// }
+// function commit() {
+//
+// }
 function getClockModel(count) {
     var text =  parseInt(count/3600)+":"+parseInt(count%3600/600)+""+parseInt(count%3600/60%10)+":"+parseInt(count%60/10)+""+count%10;
     return text;

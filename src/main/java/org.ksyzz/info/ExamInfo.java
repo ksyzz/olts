@@ -14,10 +14,11 @@ public class ExamInfo {
     private String password;
     private int time_limited;
     private List<QuestionInfo> questions;
-    private List<PaperInfo> papers;
+//    private List<PaperInfo> papers;
 
     public ExamInfo() {
     }
+
     public ExamInfo(Exam exam){
         this.examId = exam.getId();
         this.title = exam.getTitle();
@@ -26,9 +27,9 @@ public class ExamInfo {
         if (exam.getQuestions() != null){
             this.questions = exam.getQuestions().stream().map(QuestionInfo :: new).collect(Collectors.toList());
         }
-        if (exam.getPapers() != null){
-            this.papers = exam.getPapers().stream().map(PaperInfo :: new).collect(Collectors.toList());
-        }
+//        if (exam.getPapers() != null){
+//            this.papers = exam.getPapers().stream().map(PaperInfo :: new).collect(Collectors.toList());
+//        }
     }
 
     public int getExamId() {
@@ -71,11 +72,11 @@ public class ExamInfo {
         this.questions = questions;
     }
 
-    public List<PaperInfo> getPapers() {
-        return papers;
-    }
-
-    public void setPapers(List<PaperInfo> papers) {
-        this.papers = papers;
-    }
+//    public List<PaperInfo> getPapers() {
+//        return papers;
+//    }
+//
+//    public void setPapers(List<PaperInfo> papers) {
+//        this.papers = papers;
+//    }
 }

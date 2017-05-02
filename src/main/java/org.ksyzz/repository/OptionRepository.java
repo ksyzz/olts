@@ -13,4 +13,6 @@ import org.springframework.stereotype.Repository;
 public interface OptionRepository extends JpaRepository<Option, Integer>, JpaSpecificationExecutor<Option>{
     @Query("select o from Option o where o.content = ?1")
     Option findByContent(String content);
+//    @Query("select o from Option o where o.correct = true")
+//    List<Option> findCorrectOptions();
 }

@@ -18,33 +18,7 @@ Created by IntelliJ IDEA.
     <script src="../js/jquery.cookie.js" type="text/javascript"></script>
     <script src="../js/student.js" type="text/javascript"></script>
     <script src="../js/timers.js" type="text/javascript"></script>
-    <script type="text/html" id="test">
-        <%--<div class="head" style="text-align: center;height: 30px">--%>
-            <%--<div class="subtop">试卷名：{{title}}</div><div class="subtop"> 考试时长：{{time_limited}}分钟 </div>  <div class="subtop" id="time"> </div>--%>
-        <%--</div>--%>
-        <%--<div class="body" id="${examInfo.id}">--%>
-            <%--<form>--%>
-                <%--{{#questions}}--%>
-                <%--<div class="question" >--%>
-                    <%--${examInfo.description}<br>--%>
-                    <%--<c:if test="${'{{questionType}}'=='RADIO'}">--%>
-                        <%--{{#options}} <div style="height: 40px"><input type="radio" name="option.isSolution" >{{content}}</div>--%>
-                        <%--{{/options}}--%>
-                    <%--</c:if>--%>
-                    <%--<c:if test="${ '{{questionType}}'=='MUSTIPLE'}">--%>
-                        <%--{{#options}} <div style="height: 40px"><input type="checkbox" name="option.isSolution" >{{content}}</div>--%>
-                        <%--{{/options}}--%>
-                    <%--</c:if>--%>
-                    <%--<c:if test="${ '{{questionType}}'=='ESSAY'}">--%>
-                        <%--<div ><textarea  class="essay" >答案</textarea></div>--%>
-                    <%--</c:if>--%>
 
-                <%--</div>--%>
-                <%--{{/questions}}--%>
-            <%--</form>--%>
-
-        <%--</div>--%>
-    </script>
 </head>
 <body class="index">
 <div class="head">

@@ -1,6 +1,7 @@
 package org.ksyzz.service;
 
 import org.ksyzz.entity.Option;
+import org.ksyzz.entity.Question;
 import org.ksyzz.info.OptionInfo;
 import org.ksyzz.repository.OptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,5 +42,11 @@ public class OptionService {
     public void deleteOption(String content){
         Option option = optionRepository.findByContent(content);
         optionRepository.delete(option);
+    }
+
+
+
+    public Option findById(int id){
+        return optionRepository.findOne(id);
     }
 }

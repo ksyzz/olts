@@ -11,4 +11,5 @@ public class  ErrorMessage {
     public static String accountExist = "id has been occupied";
     public static String noPrivilege = "you don't have the privilege";
     public static String tokenInvalidation = "token invalidation, please login again";
+    public static String repeateExam = "you have been joined the exam";
 }
