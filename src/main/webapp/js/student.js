@@ -1,17 +1,7 @@
 /**
  * Created by csdc01 on 2017/4/24.
  */
-window.onunload = function () {
-    var token = $.cookie("token");
-    $.ajax({
-        url:"/account/logout?token="+token,
-        async:false,
-        type:"delete",
-        success:function () {
-            $.cookie('token', '', { expires: -1 });
-        }
-    })
-}
+
 $(function () {
     $("#exit").on('click', function () {
         var token = $.cookie("token");

@@ -1,5 +1,7 @@
 package org.ksyzz.entity;
 
+import org.hibernate.event.spi.SaveOrUpdateEvent;
+
 import javax.persistence.*;
 import javax.security.auth.Subject;
 import java.util.List;

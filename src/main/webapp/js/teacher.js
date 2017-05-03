@@ -54,6 +54,7 @@ $(function () {
                 success:function (data) {
                     $this.html("修改");
                     $this.parent().attr("id", data.examId);
+                    $(".paper").prepend(data.examId)
                 },
                 error:function (request) {
                     alert(request.responseText);

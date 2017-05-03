@@ -15,8 +15,6 @@ public class Answer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @ManyToOne(optional = false)
-    private Paper paper;
     @OneToOne(optional = false)
     private Question question;
     private int score;
@@ -43,14 +41,6 @@ public class Answer {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public Paper getPaper() {
-        return paper;
-    }
-
-    public void setPaper(Paper paper) {
-        this.paper = paper;
     }
 
     public Question getQuestion() {

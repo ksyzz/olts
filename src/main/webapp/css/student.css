@@ -4,3 +4,11 @@
     height: inherit;
     float: left;
 }
+.answer{
+    float: left;
+    border: none;
+    display: none;
+    background-color: inherit;
+    font-size: 15px;
+    color: red;
+}

@@ -3,6 +3,7 @@ package org.ksyzz.service;
 import org.ksyzz.entity.*;
 import org.ksyzz.enums.QuestionType;
 import org.ksyzz.exception.NullEntityException;
+import org.ksyzz.info.OptionInfo;
 import org.ksyzz.info.PaperInfo;
 import org.ksyzz.repository.ExamRepository;
 import org.ksyzz.repository.PaperRepository;
@@ -53,14 +54,17 @@ public class PaperService {
                     answer.setEssay_answer(answerInfo.getEssay_answer());
                 }else {
                     List<Option> solutions = new ArrayList<Option>();
-                    answerInfo.getAnswers().forEach(optionInfo -> {
-                        solutions.add(optionService.findById(optionInfo.getOptionId()));
-                    });
-                    answer.setAnswers(solutions);
-                    List<Option> correct_solutions = questionService.getCorrectOptions(question);
-                    if ( solutions.size() == correct_solutions.size() && solutions.containsAll(correct_solutions))
-                    {
-                        question_score = question.getScore();
+                    List<OptionInfo> optionInfos =  answerInfo.getAnswers();
+                    if (optionInfos != null){
+                        optionInfos.forEach(optionInfo -> {
+                            solutions.add(optionService.findById(optionInfo.getOptionId()));
+                        });
+                        answer.setAnswers(solutions);
+                        List<Option> correct_solutions = questionService.getCorrectOptions(question);
+                        if ( solutions.size() == correct_solutions.size() && solutions.containsAll(correct_solutions))
+                        {
+                            question_score = question.getScore();
+                        }
                     }
                     answer.setScore(question_score);
                     paper.calculateScore(question_score);
@@ -71,7 +75,6 @@ public class PaperService {
             paper.setAnswers(answers);
         }else {
             paper.setScore(0);
-
         }
         paperRepository.save(paper);
         return paper;

@@ -7,10 +7,7 @@ import org.ksyzz.service.AccountTokenService;
 import org.ksyzz.service.PaperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by fengqian on 2017/5/2.
@@ -25,6 +22,7 @@ public class PaperController {
 
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @ResponseBody
     public PaperInfo addPaper(
             @RequestHeader("token") String token,
             @RequestBody PaperInfo paperInfo
