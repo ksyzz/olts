@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.ksyzz.util.ErrorMessage.nullExam;
 
@@ -61,8 +62,9 @@ public class PaperService {
                         });
                         answer.setAnswers(solutions);
                         List<Option> correct_solutions = questionService.getCorrectOptions(question);
-                        if ( solutions.size() == correct_solutions.size() && solutions.containsAll(correct_solutions))
-                        {
+                        List<Integer> optionIds = correct_solutions.stream().map(Option::getId).collect(Collectors.toList());
+                        List<Integer> solutionIds = solutions.stream().map(Option :: getId).collect(Collectors.toList());
+                        if (optionIds.size() == solutionIds.size() && solutionIds.containsAll(optionIds)){
                             question_score = question.getScore();
                         }
                     }
@@ -89,5 +91,23 @@ public class PaperService {
             return true;
         else
             return false;
+    }
+
+    /**
+     * 获取某一学生的答卷
+     * @param account
+     * @return
+     */
+    public List<Paper> getPaperByAccount(Account account){
+        return paperRepository.findByAccount(account);
+    }
+
+    /**
+     * 获取某一考试的答卷
+     * @param exam
+     * @return
+     */
+    public List<Paper> getPaperByExam(Exam exam){
+        return paperRepository.findByExam(exam);
     }
 }

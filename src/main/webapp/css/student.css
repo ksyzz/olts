@@ -5,7 +5,7 @@
     float: left;
 }
 .answer{
-    float: left;
+    /*float: left;*/
     border: none;
     display: none;
     background-color: inherit;

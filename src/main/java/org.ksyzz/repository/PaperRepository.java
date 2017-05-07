@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Created by fengqian on 2017/4/11.
  */
@@ -15,4 +17,8 @@ import org.springframework.stereotype.Repository;
 public interface PaperRepository extends JpaRepository<Paper, Integer>, JpaSpecificationExecutor<Paper>{
     @Query("select p from Paper p where p.account = ?1 and p.exam = ?2")
     Paper findByAccountAndExam(Account account, Exam exam);
+    @Query("select p from Paper p where p.account = ?1")
+    List<Paper> findByAccount(Account account);
+    @Query("select p from Paper p where p.exam = ?1")
+    List<Paper> findByExam(Exam exam);
 }

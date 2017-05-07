@@ -56,12 +56,17 @@ public class ExamService {
      * @return
      */
     public Exam joinExam(int id, String password){
-        Exam exam = examRepository.findOne(id);
-        if (exam == null){
-            throw new NullEntityException(nullExam);
-        }
+        Exam exam = getExam(id);
         if (!exam.getPassword().equals(password)){
             throw new ConflictException(passwordNotCorrect);
+        }
+        return exam;
+    }
+
+    public Exam getExam(int examId){
+        Exam exam = examRepository.findOne(examId);
+        if (exam == null){
+            throw new NullEntityException(nullExam);
         }
         return exam;
     }

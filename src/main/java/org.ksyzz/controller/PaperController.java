@@ -1,13 +1,19 @@
 package org.ksyzz.controller;
 
 import org.ksyzz.entity.Account;
+import org.ksyzz.entity.Exam;
 import org.ksyzz.entity.Paper;
 import org.ksyzz.info.PaperInfo;
 import org.ksyzz.service.AccountTokenService;
+import org.ksyzz.service.ExamService;
 import org.ksyzz.service.PaperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by fengqian on 2017/5/2.
@@ -19,8 +25,14 @@ public class PaperController {
     PaperService paperService;
     @Autowired
     AccountTokenService accountTokenService;
-
-
+    @Autowired
+    ExamService examService;
+    /**
+     * 学生提交答卷
+     * @param token
+     * @param paperInfo
+     * @return
+     */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public PaperInfo addPaper(
@@ -30,5 +42,35 @@ public class PaperController {
         Account account = accountTokenService.getAccountByToken(token);
         Paper paper = paperService.addPaper(account, paperInfo);
         return new PaperInfo(paper);
+    }
+
+    /**
+     * 获取个人所有答卷
+     */
+    @RequestMapping(value = "/get/account/{token}", method = RequestMethod.GET)
+    public String getPapersByAccount(
+            @PathVariable("token") String token,
+            ModelMap modelMap
+    ){
+        Account account = accountTokenService.getAccountByToken(token);
+        List<PaperInfo> papers = paperService.getPaperByAccount(account).stream().map(PaperInfo::new).collect(Collectors.toList());
+        modelMap.addAttribute("paperInfos", papers);
+        return "student_papers";
+
+    }
+
+    /**
+     * 获取某一考试的所有答卷
+     * @param examId
+     * @return
+     */
+    @RequestMapping(value = "/get/exam/{examId}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<PaperInfo> getPapersByExam(
+            @PathVariable("examId") int examId
+    ){
+        Exam exam = examService.getExam(examId);
+        List<Paper> papers = paperService.getPaperByExam(exam);
+        return papers.stream().map(PaperInfo::new).collect(Collectors.toList());
     }
 }

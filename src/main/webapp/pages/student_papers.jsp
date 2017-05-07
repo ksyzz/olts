@@ -1,22 +1,19 @@
-<%@ page import="sun.misc.Request" %>
-<%@ page import="jdk.nashorn.internal.ir.RuntimeNode" %>
-Created by IntelliJ IDEA.
-  User: csdc01
-  Date: 2017/4/13
-  Time: 15:57
+<%--
+  Created by IntelliJ IDEA.
+  User: 夜落尽&天未明
+  Date: 2017/5/7 0007
+  Time: 10:19
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Student</title>
+    <title>我的试卷</title>
     <link href="../css/teacher.css" rel="stylesheet" type="text/css">
-    <link href="../css/student.css" rel="stylesheet" type="text/css">
     <script src="../js/jQuery3.2.js" type="text/javascript"></script>
     <script src="../js/mustache.js" type="text/javascript"></script>
     <script src="../js/jquery.cookie.js" type="text/javascript"></script>
-    <script src="../js/student.js" type="text/javascript"></script>
     <script src="../js/timers.js" type="text/javascript"></script>
 
 </head>
@@ -27,14 +24,23 @@ Created by IntelliJ IDEA.
     <div class="user"><p>${account.userName}|<a id="exit" >退出</a></p></div>
 </div>
 <div class="body">
-    <div class="paper">
-        <br><input type="text"  id="examId" class="password" placeholder="请输入试卷序号" onkeyup="if(!/^\d+$/.test(this.value)) {alert('只能输入数字 !'); this.value=this.value.replace(/[^\d]+/g,'');}"><br>
-        <br><input type="text" id="password" placeholder="请输入考试密码" class="password"><br>
-        <br><input type="text" id="studentId" placeholder="请输入学号" class="password"><br>
-        <div class="error" style="color: red"></div>
-        <br><button  type="button" id="join" style="border: none;background-color: inherit;font-size: 18px">参加</button><br>
-    </div>
+    <c:if test="${paperInfos == null}">
+        你还未参加任何考试。
+    </c:if>
+    <c:if test="${paperInfos != null}">
+        <ul>
+        <c:forEach items="${paperInfos}" var="paperInfo">
+          <li><a>考试：${paperInfo.examInfo.title}，分数：${paperInfo.score}</a></li>
+            <div>
+                <c:forEach items="${paperInfo.answerInfos}" var="answerInfo" varStatus="index">
+                    <c:if test="${answerInfo.score==0}">X</c:if>
+                    <c:if test="${answerInfo.score!=0}">\/</c:if>
+                    ${index+1},${answerInfo.questionInfo.description}
+                </c:forEach>
+            </div>
+        </c:forEach>
+        </ul>
+    </c:if>
 </div>
-
 </body>
 </html>

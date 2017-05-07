@@ -11,7 +11,6 @@ window.onunload = function () {
 $(function () {
     $("#commit").on('click', function () {
         commit();
-        $(this).attr("disabled", true);
     })
 })
 function commit() {
@@ -63,6 +62,7 @@ function commit() {
         },
         success:function (data) {
             $("#time").stopTime();
+            $("#commit_exam").attr("disabled", true);
             $(".answer").attr("type","text");
             $(".answer").show();
             $("#time").html("总分："+data.score);
@@ -72,9 +72,9 @@ function commit() {
                 var type = data.answerInfos[i].questionInfo.questionType;
                 if ((type == "RADIO" || type == "MULTIPLE" )){
                     if (score == 0){
-                        $("#"+id).prepend("X")
+                        $("#question"+id).prepend("X")
                     }else {
-                        $("#"+id).prepend("\\\/")
+                        $("#question"+id).prepend("\\\/")
                     }
 
                 }
@@ -96,6 +96,7 @@ function startExam(timelength) {
             if (timeCount == 0){
                 $("#time").stopTime();
                 commit();
+                return;
             }
             var clock = getClockModel(timeCount);
             $(this).html(clock);
