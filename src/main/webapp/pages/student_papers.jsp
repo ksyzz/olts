@@ -11,6 +11,8 @@
 <head>
     <title>我的试卷</title>
     <link href="../css/teacher.css" rel="stylesheet" type="text/css">
+    <link href="../css/student.css" rel="stylesheet" type="text/css">
+    <script src="../js/paper.js" type="text/javascript"></script>
     <script src="../js/jQuery3.2.js" type="text/javascript"></script>
     <script src="../js/mustache.js" type="text/javascript"></script>
     <script src="../js/jquery.cookie.js" type="text/javascript"></script>
@@ -30,12 +32,22 @@
     <c:if test="${paperInfos != null}">
         <ul>
         <c:forEach items="${paperInfos}" var="paperInfo">
-          <li><a>考试：${paperInfo.examInfo.title}，分数：${paperInfo.score}</a></li>
-            <div>
+          <li><a onclick="showPaper(this)">考试：${paperInfo.examInfo.title}，分数：${paperInfo.score}</a></li>
+            <div class="view">
                 <c:forEach items="${paperInfo.answerInfos}" var="answerInfo" varStatus="index">
                     <c:if test="${answerInfo.score==0}">X</c:if>
                     <c:if test="${answerInfo.score!=0}">\/</c:if>
-                    ${index+1},${answerInfo.questionInfo.description}
+                    ${index.index+1},${answerInfo.questionInfo.description}
+                    <br>
+                    <c:forEach items="${answerInfo.questionInfo.options}" var="optionInfo" varStatus="o_index">
+                        ${o_index.index+1},${optionInfo.content}&nbsp;${optionInfo.correct}<br>
+                    </c:forEach>
+                    解析：${answerInfo.questionInfo.analysis}${answerInfo.questionInfo.essay_solution}
+                    你的答案：
+                    <c:forEach items="${answerInfo.answers} " var="answer">
+                        ${answer.content};
+                    </c:forEach>
+                    ${answerInfo.essay_answer}
                 </c:forEach>
             </div>
         </c:forEach>
