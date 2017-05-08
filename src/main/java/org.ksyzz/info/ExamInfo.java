@@ -12,6 +12,7 @@ public class ExamInfo {
     private int examId;
     private String title;
     private String password;
+    private int score;
     private int time_limited;
     private List<QuestionInfo> questions;
 //    private List<PaperInfo> papers;
@@ -24,6 +25,7 @@ public class ExamInfo {
         this.title = exam.getTitle();
         this.password = exam.getPassword();
         this.time_limited = exam.getTime_limited();
+        this.score = exam.getScore();
         if (exam.getQuestions() != null){
             this.questions = exam.getQuestions().stream().map(QuestionInfo :: new).collect(Collectors.toList());
         }
@@ -72,7 +74,15 @@ public class ExamInfo {
         this.questions = questions;
     }
 
-//    public List<PaperInfo> getPapers() {
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    //    public List<PaperInfo> getPapers() {
 //        return papers;
 //    }
 //

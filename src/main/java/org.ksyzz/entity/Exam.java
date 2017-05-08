@@ -14,6 +14,7 @@ public class Exam {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String title;
+    private int score=0;
     //凭此密码参加考试
     private String password;
     //考试时长
@@ -22,7 +23,7 @@ public class Exam {
     private Account account;
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "exam")
     private List<Question> questions;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "exam")
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL, mappedBy = "exam")
     private List<Paper> papers;
 
     public Account getAccount() {
@@ -81,9 +82,18 @@ public class Exam {
         this.papers = papers;
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score += score;
+    }
+
     public void addQuestion(Question question){
         this.questions.add(question);
     }
+
     public void addPaper(Paper paper){
         this.papers.add(paper);
     }

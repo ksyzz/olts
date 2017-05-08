@@ -1,5 +1,6 @@
 package org.ksyzz.entity;
 
+import org.hibernate.event.spi.SaveOrUpdateEvent;
 import org.ksyzz.enums.QuestionType;
 import org.ksyzz.info.QuestionInfo;
 
@@ -24,7 +25,7 @@ public class Question {
     private String description;
     @Enumerated(EnumType.STRING)
     private QuestionType questionType;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Exam exam;
     //选择题选项
     @OneToMany(fetch = FetchType.LAZY)

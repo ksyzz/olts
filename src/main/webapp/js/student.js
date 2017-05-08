@@ -17,12 +17,13 @@ $(function () {
     $("#join").on('click', function () {
         var examId = $("#examId").val();
         var password = $("#password").val();
-        var studentId = $("#studentId").val();
-        if (examId == "" || password == "" ||studentId == ""){
+        // var studentId = $("#studentId").val();
+        if (examId == "" || password == "" ){
             alert("请补充完整试卷信息");
             return;
         }
-        var url = "/exam/get?studentId="+studentId+"&examId="+examId+"&password="+password;
+        var token = $.cookie("token");
+        var url = "/exam/get?token="+token+"&examId="+examId+"&password="+password;
         window.open(url, '_self');
         // $.ajax({
         //     url:"/exam/get",

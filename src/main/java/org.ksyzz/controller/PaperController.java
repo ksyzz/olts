@@ -3,6 +3,7 @@ package org.ksyzz.controller;
 import org.ksyzz.entity.Account;
 import org.ksyzz.entity.Exam;
 import org.ksyzz.entity.Paper;
+import org.ksyzz.info.AccountInfo;
 import org.ksyzz.info.PaperInfo;
 import org.ksyzz.service.AccountTokenService;
 import org.ksyzz.service.ExamService;
@@ -55,6 +56,7 @@ public class PaperController {
         Account account = accountTokenService.getAccountByToken(token);
         List<PaperInfo> papers = paperService.getPaperByAccount(account).stream().map(PaperInfo::new).collect(Collectors.toList());
         modelMap.addAttribute("paperInfos", papers);
+        modelMap.addAttribute("account", new AccountInfo(account));
         return "student_papers";
 
     }

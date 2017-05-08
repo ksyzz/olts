@@ -1,6 +1,7 @@
 package org.ksyzz.controller;
 
 import org.ksyzz.entity.Account;
+import org.ksyzz.info.AccountInfo;
 import org.ksyzz.service.AccountTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,25 +28,17 @@ public class IndexController {
             ModelMap modelMap
     ){
         Account account = accountTokenService.getAccountByToken(token);
-        modelMap.addAttribute("account", account);
+        modelMap.addAttribute("account", new AccountInfo(account));
         return "teacher_create";
     }
-    @RequestMapping("/teacher_view")
-    public String teacher_view(
-            @RequestParam("token") String token,
-            ModelMap modelMap
-    ){
-        Account account = accountTokenService.getAccountByToken(token);
-        modelMap.addAttribute("account", account);
-        return "teacher_view";
-    }
+
     @RequestMapping("/student")
     public String student(
             @RequestParam("token") String token,
             ModelMap modelMap
     ){
         Account account = accountTokenService.getAccountByToken(token);
-        modelMap.addAttribute("account", account);
+        modelMap.addAttribute("account", new AccountInfo(account));
         return "student_join";
     }
 }

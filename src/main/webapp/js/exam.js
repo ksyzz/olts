@@ -3,10 +3,9 @@
  * Created by csdc01 on 2017/5/2.
  */
 window.onunload = function () {
-    if($("#commit").attr("disabled")){
+    if(!$("#commit").attr("disabled")){
         commit();
     }
-
 }
 $(function () {
     $("#commit").on('click', function () {
@@ -23,21 +22,21 @@ function commit() {
         var value = array[i].value;
         if (name == "questionId"){
             if (i == 0){
-                body += "\"questionInfo\":{\"questionId\":\""+value+"\"},"
+                body += "\"questionInfo\":{\"questionId\":\""+value+"\"}"
             }else {
                 if (isOption != 0){
                     body += "]";
                 }
-                body += "},{\"questionInfo\":{\"questionId\":\""+value+"\"},"
+                body += "},{\"questionInfo\":{\"questionId\":\""+value+"\"}"
             }
             isOption = 0;
 
         }else if (name == "essay_answer"){
             isOption = 0;
-            body += "\"essay_answer\":\""+value+"\"";
+            body += ",\"essay_answer\":\""+value+"\"";
         }else {
             if (isOption == 0){
-                body += "\"answers\":[{\"optionId\":\""+value+"\"}";
+                body += ",\"answers\":[{\"optionId\":\""+value+"\"}";
             }else {
                 body += ",{\"optionId\":\""+value+"\"}";
             }
@@ -62,10 +61,14 @@ function commit() {
         },
         success:function (data) {
             $("#time").stopTime();
-            $("#commit_exam").attr("disabled", true);
+            $("#commit").attr("disabled", true);
             $(".answer").attr("type","text");
             $(".answer").show();
             $("#time").html("总分："+data.score);
+            $("#start").show();
+            var html="<button style='font-size: 15px; left: 48%;'  onclick='reback()'>返回个人界面</button>";
+            $("#start").html(html);
+
             for(var i = 0; i < data.answerInfos.length; i++){
                 var id = data.answerInfos[i].questionInfo.questionId;
                 var score = data.answerInfos[i].score;
@@ -87,7 +90,7 @@ function commit() {
 }
 function startExam(timelength) {
     $(".body").show();
-    $("#start").remove();
+    $("#start").hide();
     $("#commit").attr("disabled", false);
 
     var timeCount = timelength*60;
@@ -106,4 +109,9 @@ function startExam(timelength) {
 function getClockModel(count) {
     var text =  parseInt(count/3600)+":"+parseInt(count%3600/600)+""+parseInt(count%3600/60%10)+":"+parseInt(count%60/10)+""+count%10;
     return text;
+}
+function reback() {
+    var token = $.cookie('token');
+    window.open('/paper/get/account/'+token, '_self');
+
 }

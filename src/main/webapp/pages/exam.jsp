@@ -20,8 +20,8 @@
 </head>
 <body>
     <div class="head" style="text-align: center;height: 30px">
-        <div class="subtop">试卷名：${examInfo.title}</div><div class="subtop"> 考试时长：${examInfo.time_limited}分钟 </div>  <div class="subtop" id="time"></div><div class="subtop" style="width: 10%" ><button id="commit" disabled="disabled" style="width: 100%;height: 100%;background-color: inherit">交卷</button></div>
-        <div id="start"><button style="font-size: 20px; left: 48%;" id="commit_exam" onclick="startExam(${examInfo.time_limited}, this)">开始考试</button></div>
+        <div class="subtop">试卷名：${examInfo.title}</div><div class="subtop"> 考试时长：${examInfo.time_limited}分钟 &nbsp;总分:${examInfo.score}</div>  <div class="subtop" id="time"></div><div class="subtop" style="width: 10%" ><button id="commit" disabled="disabled" style="width: 100%;height: 100%;background-color: inherit">交卷</button></div>
+        <div id="start"><button style="font-size: 20px; left: 48%;"  onclick="startExam(${examInfo.time_limited}, this)">开始考试</button></div>
     </div>
 
     <div class="body" style="width: 100%;display: none" id="${examInfo.examId}" >

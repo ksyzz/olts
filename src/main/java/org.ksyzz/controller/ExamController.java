@@ -11,8 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.ksyzz.util.ErrorMessage.nullAccount;
 import static org.ksyzz.util.ErrorMessage.repeateExam;
@@ -86,13 +86,12 @@ public class ExamController {
      */
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     public String joinExam(
-            @RequestParam("studentId") String studentId,
+            @RequestParam("token") String token,
             @RequestParam("examId") int examId,
             @RequestParam("password") String password,
-            ModelMap modelMap,
-            HttpServletResponse response
+            ModelMap modelMap
     ){
-        Account account = accountService.findById(studentId);
+        Account account = accountTokenService.getAccountByToken(token);
         if (account == null){
             throw new NullEntityException(nullAccount);
         }
@@ -100,12 +99,21 @@ public class ExamController {
         if (paperService.isAnswered(account, exam)){
             throw new ConflictException(repeateExam);
         }
-        // TODO: 2017/4/24 答完试卷后删除cookie
-        Cookie cookie = new Cookie("studentId", studentId);
-        cookie.setPath("/");
-        response.addCookie(cookie);
         ExamInfo examInfo = new ExamInfo(exam);
         modelMap.addAttribute("examInfo", examInfo);
        return "exam";
+    }
+
+    @RequestMapping(value = "/teacher_view", method = RequestMethod.GET)
+    public String getExams(
+            @RequestParam("token") String token,
+            ModelMap modelMap
+    ){
+        Account account = accountTokenService.getAccountByToken(token);
+        privilegeService.assertPrivilege(account);
+        modelMap.addAttribute("account", account);
+        List<ExamInfo> examInfos = examService.getExamByAccount(account).stream().map(ExamInfo :: new).collect(Collectors.toList());
+        modelMap.addAttribute("examInfos", examInfos);
+        return "teacher_view";
     }
 }

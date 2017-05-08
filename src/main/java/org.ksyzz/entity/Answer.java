@@ -15,7 +15,7 @@ public class Answer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private Question question;
     private int score;
     private String essay_answer;

@@ -14,5 +14,6 @@
 }
 .view{
     display: none;
+    width: 80%;
     background-color: #eeedee;
 }

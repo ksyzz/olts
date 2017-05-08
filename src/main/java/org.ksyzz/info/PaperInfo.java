@@ -18,7 +18,7 @@ public class PaperInfo {
     public PaperInfo(Paper paper){
         this.paperId = paper.getId();
         this.accountInfo = new AccountInfo(paper.getAccount());
-//        this.examInfo = new ExamInfo(paper.getExam());
+        this.examInfo = new ExamInfo(paper.getExam());
         this.score = paper.getScore();
         this.answerInfos = paper.getAnswers().stream().map(AnswerInfo :: new).collect(Collectors.toList());
     }

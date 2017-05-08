@@ -3,10 +3,7 @@ package org.ksyzz.test;
 import com.jayway.restassured.http.ContentType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.ksyzz.entity.Account;
-import org.ksyzz.entity.Option;
-import org.ksyzz.entity.Paper;
-import org.ksyzz.entity.Question;
+import org.ksyzz.entity.*;
 import org.ksyzz.info.PaperInfo;
 import org.ksyzz.repository.*;
 import org.ksyzz.service.AccountService;
@@ -48,12 +45,10 @@ public class MainTest {
     @Test
     public void testCreateAccount(){
 
-        paperRepository.delete(7);
+        paperRepository.delete(11);
     }
     @Test
     public void testDeleteToken(){
-//        Account account = accountService.findById("ksyzz4");
-//        String token = accountTokenService.createToken(account);
         given()
                 .header("token", "38bfda0c-819e-4570-967b-f2bbfb5195dd")
                 .contentType(ContentType.JSON)
@@ -84,5 +79,15 @@ public class MainTest {
         papers.stream().map(PaperInfo::new).collect(Collectors.toList()).forEach(paper->{
             System.out.println(paper.getExamInfo().getTitle());
         });
+    }
+    @Test
+    public void testAddquestion(){
+        Exam exam = examRepository.findOne(2);
+        Question question = new Question();
+        question.setScore(5);
+        exam.setScore(5);
+        examRepository.save(exam);
+        question.setExam(exam);
+        questionRepository.save(question);
     }
 }

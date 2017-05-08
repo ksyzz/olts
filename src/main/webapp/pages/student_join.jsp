@@ -30,7 +30,7 @@ Created by IntelliJ IDEA.
     <div class="paper">
         <br><input type="text"  id="examId" class="password" placeholder="请输入试卷序号" onkeyup="if(!/^\d+$/.test(this.value)) {alert('只能输入数字 !'); this.value=this.value.replace(/[^\d]+/g,'');}"><br>
         <br><input type="text" id="password" placeholder="请输入考试密码" class="password"><br>
-        <br><input type="text" id="studentId" placeholder="请输入学号" class="password"><br>
+        <%--<br><input type="text" id="studentId" placeholder="请输入学号" class="password"><br>--%>
         <div class="error" style="color: red"></div>
         <br><button  type="button" id="join" style="border: none;background-color: inherit;font-size: 18px">参加</button><br>
     </div>

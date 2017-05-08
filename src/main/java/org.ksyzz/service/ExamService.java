@@ -8,6 +8,8 @@ import org.ksyzz.repository.ExamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import static org.ksyzz.util.ErrorMessage.nullExam;
 import static org.ksyzz.util.ErrorMessage.passwordNotCorrect;
 
@@ -37,6 +39,14 @@ public class ExamService {
         return exam;
     }
 
+    /**
+     * 修改考试信息
+     * @param id
+     * @param title
+     * @param password
+     * @param time_limited
+     * @return
+     */
     public Exam modifyExam(int id, String title, String password, int time_limited){
         Exam exam = examRepository.findOne(id);
         if (exam == null){
@@ -63,6 +73,14 @@ public class ExamService {
         return exam;
     }
 
+    /**
+     * 获取自己创建的考试
+     * @param account
+     * @return
+     */
+    public List<Exam> getExamByAccount(Account account){
+        return examRepository.findByAccount(account);
+    }
     public Exam getExam(int examId){
         Exam exam = examRepository.findOne(examId);
         if (exam == null){

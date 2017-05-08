@@ -33,6 +33,8 @@ public class QuestionService {
      */
     public Question createQuestion(int examId, QuestionInfo questionInfo){
         Exam exam = examRepository.findOne(examId);
+        exam.setScore(questionInfo.getScore());
+        examRepository.save(exam);
         Question question = new Question(questionInfo);
         question.setExam(exam);
         if (questionInfo.getOptions() != null){
