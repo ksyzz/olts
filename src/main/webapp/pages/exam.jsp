@@ -50,7 +50,7 @@
 
                     </c:if>
                     <c:if test="${question.questionType=='ESSAY'}">
-                        <div ><textarea  class="essay" name="essay_answer">答案</textarea></div>
+                        <div ><textarea  class="essay" name="essay_answer" placeholder="答案"></textarea></div>
                         <div class="answer" style="float: none">答案：${question.essay_solution}</div>
                     </c:if>
                 </div>

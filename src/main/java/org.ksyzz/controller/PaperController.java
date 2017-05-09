@@ -8,6 +8,7 @@ import org.ksyzz.info.PaperInfo;
 import org.ksyzz.service.AccountTokenService;
 import org.ksyzz.service.ExamService;
 import org.ksyzz.service.PaperService;
+import org.ksyzz.service.PrivilegeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -28,6 +29,8 @@ public class PaperController {
     AccountTokenService accountTokenService;
     @Autowired
     ExamService examService;
+    @Autowired
+    PrivilegeService privilegeService;
     /**
      * 学生提交答卷
      * @param token
@@ -67,12 +70,18 @@ public class PaperController {
      * @return
      */
     @RequestMapping(value = "/get/exam/{examId}", method = RequestMethod.GET)
-    @ResponseBody
-    public List<PaperInfo> getPapersByExam(
-            @PathVariable("examId") int examId
+    public String getPapersByExam(
+            @PathVariable("examId") int examId,
+            @RequestParam("token") String token,
+            ModelMap modelMap
     ){
+        Account account = accountTokenService.getAccountByToken(token);
+        privilegeService.assertPrivilege(account);
         Exam exam = examService.getExam(examId);
         List<Paper> papers = paperService.getPaperByExam(exam);
-        return papers.stream().map(PaperInfo::new).collect(Collectors.toList());
+        List<PaperInfo> paperInfos = papers.stream().map(PaperInfo::new).collect(Collectors.toList());
+        modelMap.addAttribute("account", account);
+        modelMap.addAttribute("paperInfos", paperInfos);
+        return "exam_detail";
     }
 }

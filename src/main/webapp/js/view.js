@@ -18,4 +18,13 @@ $(function () {
         })
     })
 })
+function showPaper(ele){
+    var target = $(ele).parent().next().next();
+    var status = target.css("display")
+    if (status == "block"){
+        target.hide();
 
+    }else {
+        target.show();
+    }
+}

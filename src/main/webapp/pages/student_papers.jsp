@@ -65,7 +65,7 @@
                 <c:forEach items="${paperInfo.answerInfos}" var="answerInfo" varStatus="index">
                     <c:if test="${answerInfo.score==0}">X</c:if>
                     <c:if test="${answerInfo.score!=0}">\/</c:if>
-                    ${index.index+1},${answerInfo.questionInfo.description}
+                    ${index.index+1},${answerInfo.questionInfo.description}&nbsp;(${answerInfo.questionInfo.score}分)
                     <br>
                     <c:forEach items="${answerInfo.questionInfo.options}" var="optionInfo" varStatus="o_index">
                     &nbsp;&nbsp;&nbsp;&nbsp;${optionInfo.content}&nbsp;<c:if test="${optionInfo.correct}">\/</c:if> <br>

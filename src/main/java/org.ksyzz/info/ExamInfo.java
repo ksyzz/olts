@@ -15,6 +15,8 @@ public class ExamInfo {
     private int score;
     private int time_limited;
     private List<QuestionInfo> questions;
+    //答卷人数
+    private int paper_number;
 //    private List<PaperInfo> papers;
 
     public ExamInfo() {
@@ -26,6 +28,7 @@ public class ExamInfo {
         this.password = exam.getPassword();
         this.time_limited = exam.getTime_limited();
         this.score = exam.getScore();
+        this.paper_number = exam.getPapers() == null ? 0 : exam.getPapers().size();
         if (exam.getQuestions() != null){
             this.questions = exam.getQuestions().stream().map(QuestionInfo :: new).collect(Collectors.toList());
         }
@@ -82,11 +85,11 @@ public class ExamInfo {
         this.score = score;
     }
 
-    //    public List<PaperInfo> getPapers() {
-//        return papers;
-//    }
-//
-//    public void setPapers(List<PaperInfo> papers) {
-//        this.papers = papers;
-//    }
+    public int getPaper_number() {
+        return paper_number;
+    }
+
+    public void setPaper_number(int paper_number) {
+        this.paper_number = paper_number;
+    }
 }

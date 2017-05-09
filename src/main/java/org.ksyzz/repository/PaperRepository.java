@@ -19,6 +19,6 @@ public interface PaperRepository extends JpaRepository<Paper, Integer>, JpaSpeci
     Paper findByAccountAndExam(Account account, Exam exam);
     @Query("select p from Paper p where p.account = ?1")
     List<Paper> findByAccount(Account account);
-    @Query("select p from Paper p where p.exam = ?1")
+    @Query("select p from Paper p where p.exam = ?1 order by score")
     List<Paper> findByExam(Exam exam);
 }
