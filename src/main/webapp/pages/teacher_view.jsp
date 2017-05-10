@@ -15,9 +15,37 @@
     <link href="../css/student.css" rel="stylesheet" type="text/css">
 
     <script type="text/javascript" src="../js/teacher.js"></script>
-    <script src="../js/view.js" type="text/javascript"></script>
+    <%--<script src="../js/view.js" type="text/javascript"></script>--%>
     <script src="../js/jquery.cookie.js" type="text/javascript"></script>
+    <script type="application/javascript">
+        window.onload = function () {
+            $("#search").css('color', 'dodgerblue');
+            $("#create").css('color', 'black');
+        }
+        function showPaper(ele){
+            var target = $(ele).parent().next().next();
+            var status = target.css("display")
+            if (status == "block"){
+                target.hide();
 
+            }else {
+                target.show();
+            }
+        }
+        $(function () {
+            $("#exit").on('click', function () {
+                var token = $.cookie("token");
+                $.ajax({
+                    url: "/account/logout?token=" + token,
+                    type: "delete",
+                    success: function () {
+                        $.cookie('token', '', {expires: -1});
+                        window.open("/pages/login.jsp", "_self");
+                    }
+                })
+            })
+        })
+    </script>
 </head>
 <body>
 <div class="head">

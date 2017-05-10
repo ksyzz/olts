@@ -32,7 +32,7 @@
         <br>
         <button class="type" id="list">查看答卷列表</button>
         <button class="type" id="topk">查看topK学生</button>
-        <button class="type" id="distribution">查看分数分布</button>
+        <button class="type" id="distribution" onclick="distribution(${exam.examId})">查看分数分布</button>
     </div>
     <div class="paper" id="paper_list">
         <ul>
@@ -64,7 +64,9 @@
         <label>查看top</label><input type="number"  min="1" style="width: 40px" onchange="if (this.value > 0 ) { grade(this.value);}"><label>学生名单</label>
         <div id="student_list"></div>
     </div>
-    <div class="paper" id="distribution_view"  style="display: none"></div>
+    <div class="paper" id="distribution_view"  style="display: none;background-color: white">
+
+    </div>
 </div>
 </body>
 </html>

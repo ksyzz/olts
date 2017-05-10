@@ -105,6 +105,19 @@
       <artifactId>javax.servlet-api</artifactId>
       <version>3.0.1</version>
     </dependency>
+    <!--绘制图表-->
+    <dependency>
+      <groupId>jfree</groupId>
+      <artifactId>jcommon</artifactId>
+      <version>1.0.12</version>
+    </dependency>
+    <dependency>
+      <groupId>jfree</groupId>
+      <artifactId>jfreechart</artifactId>
+      <version>1.0.12</version>
+    </dependency>
+
+
   </dependencies>
   <build>
     <finalName>olts</finalName>

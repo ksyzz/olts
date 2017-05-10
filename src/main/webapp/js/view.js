@@ -45,17 +45,20 @@ $(function () {
         $("#topk_view").show();
         $("#distribution_view").hide();
     })
-    $("#distribution").on("click", function () {
-        $("#paper_list").hide();
-        $("#topk_view").hide();
-        $("#distribution_view").show();
-    })
+
     $("#list").on('click', function () {
         $("#paper_list").show();
         $("#topk_view").hide();
         $("#distribution_view").hide();
     })
 })
+function distribution(examId) {
+    var token = $.cookie("token");
+    $("#paper_list").hide();
+    $("#topk_view").hide();
+    $("#distribution_view").show();
+    $("#distribution_view").html("<img src='/exam/get/results/"+examId+"?token="+ token +"'>");
+}
 function grade(paperInfos, k) {
     // alert(k);
     //

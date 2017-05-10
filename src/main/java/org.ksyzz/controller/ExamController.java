@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -104,6 +106,12 @@ public class ExamController {
        return "exam";
     }
 
+    /**
+     * 获取自己创建的试卷列表
+     * @param token
+     * @param modelMap
+     * @return
+     */
     @RequestMapping(value = "/teacher_view", method = RequestMethod.GET)
     public String getExams(
             @RequestParam("token") String token,
@@ -115,5 +123,20 @@ public class ExamController {
         List<ExamInfo> examInfos = examService.getExamByAccount(account).stream().map(ExamInfo :: new).collect(Collectors.toList());
         modelMap.addAttribute("examInfos", examInfos);
         return "teacher_view";
+   }
+
+    /**
+     * 获取考试成绩的直方图
+     */
+    @RequestMapping(value = "/get/results/{examId}", method = RequestMethod.GET)
+    @ResponseBody
+    public void getExamResults(
+            @PathVariable("examId") int examId,
+            @RequestParam("token") String token,
+            HttpServletResponse response
+    ) throws IOException {
+        Account account = accountTokenService.getAccountByToken(token);
+        privilegeService.assertPrivilege(account);
+        examService.getPaperGrades(examId, response);
     }
 }

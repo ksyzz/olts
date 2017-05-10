@@ -44,9 +44,19 @@ public class MainTest {
     OptionRepository optionRepository;
     @Test
     public void testCreateAccount(){
+//        Exam exam = examRepository.findOne(1);
+//        List<Paper> papers = exam.getPapers();
+//        papers.forEach(paper -> {
+//            System.out.println(paper.getId());
+//        });
 //        List<Paper> papers = paperRepository.findOrderByScore();
 //        System.out.println(papers.get(0).getId());
 //        paperRepository.delete(11);
+        int a = (int)Math.ceil(((double)24)/10);
+        int c = 10/10;
+        String b = a*10 + "-" + (a+1)*10;
+        System.out.println(a);
+        System.out.println(Math.ceil(c)*10);
     }
     @Test
     public void testDeleteToken(){
