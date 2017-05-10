@@ -44,8 +44,9 @@ public class MainTest {
     OptionRepository optionRepository;
     @Test
     public void testCreateAccount(){
-
-        paperRepository.delete(11);
+//        List<Paper> papers = paperRepository.findOrderByScore();
+//        System.out.println(papers.get(0).getId());
+//        paperRepository.delete(11);
     }
     @Test
     public void testDeleteToken(){

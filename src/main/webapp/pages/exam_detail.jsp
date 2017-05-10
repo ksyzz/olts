@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.util.Map" %><%--
   Created by IntelliJ IDEA.
   User: csdc01
   Date: 2017/5/9
@@ -18,45 +18,7 @@
     <script src="/js/view.js" type="text/javascript"></script>
     <script src="/js/jquery.cookie.js" type="text/javascript"></script>
     <script type="application/javascript">
-        $(function () {
-            $("#exit").on('click', function () {
-                var token = $.cookie("token");
-                $.ajax({
-                    url:"/account/logout?token="+token,
-                    type:"delete",
-                    success:function () {
-                        $.cookie('token', '', { expires: -1 });
-                        window.open("/pages/login.jsp", "_self");
-                    }
-                })
-            })
-            $("#topk").on('click', function () {
-                $("#paper_list").hide();
-                $("#topk_view").show();
-                $("#distribution_view").hide();
-            })
-            $("#distribution").on("click", function () {
-                $("#paper_list").hide();
-                $("#topk_view").hide();
-                $("#distribution_view").show();
-            })
-            $("#list").on('click', function () {
-                $("#paper_list").show();
-                $("#topk_view").hide();
-                $("#distribution_view").hide();
-            })
-        })
-        function showPaper(ele){
-            var target = $(ele).parent().next();
-            var status = target.css("display")
-            if (status == "block"){
-                target.hide();
-
-            }else {
-                target.show();
-            }
-        }
-
+        var paperInfos = ${paperInfos}
     </script>
 </head>
 <body>
@@ -99,7 +61,8 @@
         </ul>
     </div>
     <div class="paper" id="topk_view" style="display: none">
-        <label>查看top</label><input type="number"  min="1" style="width: 40px" onchange="if (this.value < 1) alert('请输入正数');"><label>学生名单</label>
+        <label>查看top</label><input type="number"  min="1" style="width: 40px" onchange="if (this.value > 0 ) { grade(this.value);}"><label>学生名单</label>
+        <div id="student_list"></div>
     </div>
     <div class="paper" id="distribution_view"  style="display: none"></div>
 </div>
