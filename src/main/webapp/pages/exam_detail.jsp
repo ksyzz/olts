@@ -17,9 +17,7 @@
     <script type="text/javascript" src="/js/teacher.js"></script>
     <script src="/js/view.js" type="text/javascript"></script>
     <script src="/js/jquery.cookie.js" type="text/javascript"></script>
-    <script type="application/javascript">
-        var paperInfos = ${paperInfos}
-    </script>
+
 </head>
 <body>
 <div class="head">
@@ -61,7 +59,7 @@
         </ul>
     </div>
     <div class="paper" id="topk_view" style="display: none">
-        <label>查看top</label><input type="number"  min="1" style="width: 40px" onchange="if (this.value > 0 ) { grade(this.value);}"><label>学生名单</label>
+        <label>查看top</label><input type="number"  min="1" style="width: 40px" onchange="if (this.value > 0 ) { grade(this.value,${exam.examId});}"><label>学生名单</label>
         <div id="student_list"></div>
     </div>
     <div class="paper" id="distribution_view"  style="display: none;background-color: white">

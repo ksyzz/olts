@@ -1,6 +1,7 @@
 /**
  * Created by 夜落尽&天未明 on 2017/5/7 0007.
  */
+var paperInfos;
 window.onload = function () {
     $("#search").css('color', 'dodgerblue');
     $("#create").css('color', 'black');
@@ -59,12 +60,32 @@ function distribution(examId) {
     $("#distribution_view").show();
     $("#distribution_view").html("<img src='/exam/get/results/"+examId+"?token="+ token +"'>");
 }
-function grade(paperInfos, k) {
-    // alert(k);
-    //
-    // for (var i = 0; i < paperInfos.length; i++){
-    //     alert(i);
-    //     alert(paperInfos[i]);
-    // }
+function grade(k, examId) {
+    if(paperInfos == null){
+        var token = $.cookie("token");
+
+        $.ajax({
+            url:"/paper/get/"+examId,
+            dataType:"json",
+            async:false,
+            beforeSend:function (request) {
+                request.setRequestHeader("token", token)
+            },
+            type:"get",
+            success:function (data) {
+                paperInfos = data;
+
+            },
+            error:function (request) {
+                alert(request.responseText);
+            }
+        })
+
+    }
+    $("#student_list").html("");
+    for (var i = 0; i < k && i < paperInfos.length; i++){
+        var html = i+1 + ".  姓名" + paperInfos[i].accountInfo.userName + ",学号："+paperInfos[i].accountInfo.id + ",分数：" + paperInfos[i].score + "<br>"
+        $("#student_list").append(html);
+    }
 
 }

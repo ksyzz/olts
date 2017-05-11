@@ -86,4 +86,25 @@ public class PaperController {
         modelMap.addAttribute("paperInfos", paperInfos);
         return "exam_detail";
     }
+
+    /**
+     * 获取答卷信息
+     * 与getPapersByExam重复
+     *
+     * @param examId
+     * @param token
+     * @return
+     */
+    @RequestMapping(value = "/get/{examId}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<PaperInfo> getPapers(
+            @PathVariable("examId") int examId,
+            @RequestHeader("token") String token
+    ){
+        Account account = accountTokenService.getAccountByToken(token);
+        privilegeService.assertPrivilege(account);
+        Exam exam = examService.getExam(examId);
+        List<Paper> papers = paperService.getPaperByExam(exam);
+        return papers.stream().map(PaperInfo::new).collect(Collectors.toList());
+    }
 }
